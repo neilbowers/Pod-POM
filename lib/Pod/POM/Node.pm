@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Node.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
+#   $Id: Node.pm,v 1.3 2002/02/06 16:45:23 abw Exp $
 #
 #========================================================================
 
@@ -28,7 +28,7 @@ use Pod::POM::Nodes;
 use Pod::POM::Constants qw( :status );
 use vars qw( $VERSION $DEBUG $ERROR $NODES $NAMES $AUTOLOAD );
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.3 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 $NODES   = {
     pod      => 'Pod::POM::Node::Pod',
@@ -174,12 +174,12 @@ sub add {
 #------------------------------------------------------------------------
 
 sub present {
-    my ($self, $view) = @_;
+    my ($self, $view, @args) = @_;
     $view    ||= $Pod::POM::DEFAULT_VIEW;
     my $type   = $self->{ type };
     my $method = "view_$type";
     DEBUG("presenting method $method\n");
-    return $view->$method($self);
+    return $view->$method($self, @args);
 }
 
 

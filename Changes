@@ -9,8 +9,20 @@
 #   Andy Wardley   <abw@kfs.org>
 #
 #------------------------------------------------------------------------
-# $Id: Changes,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
+# $Id: Changes,v 1.3 2002/02/06 16:45:13 abw Exp $
 #========================================================================
+
+#------------------------------------------------------------------------
+# Version 0.13  6th February 2002
+#------------------------------------------------------------------------
+
+* Applied a patch from Leon Brocard to change 'length' to 'defined' to
+  make Pod::POM work OK with bleadperl.
+
+* Changed Pod::POM::View::HTML view_seq_text() method to automatically
+  escape < > and &.  Thanks to lazy POD author Mark Fowler for raising 
+  the issue. :-)
+
 
 #------------------------------------------------------------------------
 # Version 0.12  3rd January 2002

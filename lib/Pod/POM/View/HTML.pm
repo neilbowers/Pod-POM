@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: HTML.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
+#   $Id: HTML.pm,v 1.4 2002/02/06 16:45:23 abw Exp $
 #
 #========================================================================
 
@@ -29,8 +29,9 @@ use base qw( Pod::POM::View );
 use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD );
 use Text::Wrap;
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.4 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
+my $HTML_PROTECT = 0;
 my @OVER;
 
 sub new {
@@ -181,7 +182,10 @@ sub view_for {
 sub view_begin {
     my ($self, $begin) = @_;
     return '' unless $begin->format() =~ /\bhtml\b/;
-    return $begin->content->present($self);
+    $HTML_PROTECT++;
+    my $output = $begin->content->present($self);
+    $HTML_PROTECT--;
+    return $output;
 }
     
 
@@ -262,6 +266,15 @@ my $any  = "${ltrs}${gunk}${punc}";
 
 sub view_seq_text {
     my ($self, $text) = @_;
+
+    unless ($HTML_PROTECT) {
+	for ($text) {
+	    s/&/&amp;/g;
+	    s/</&lt;/g;
+	    s/>/&gt;/g;
+	}
+    }
+
     $text =~  s{
         \b                          # start at word boundary
         (                           # begin $1  {

@@ -3,9 +3,9 @@ MANIFEST
 Makefile.PL
 README
 TODO
-bin/pom2
-bin/podlint
 bin/custom-pom2
+bin/podlint
+bin/pom2
 lib/Pod/POM.pm
 lib/Pod/POM/Constants.pm
 lib/Pod/POM/Node.pm
@@ -18,8 +18,11 @@ lib/Pod/POM/View/Text.pm
 t/code.t
 t/complete.t
 t/head.t
-t/htmlview.t
+t/htmlescp.t
 t/htmllist.t
+t/htmlview.t
+t/list.t
+t/meta.t
 t/test.pod
 t/text.t
 t/textview.t

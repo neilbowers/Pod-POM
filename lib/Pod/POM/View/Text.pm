@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Text.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
+#   $Id: Text.pm,v 1.2 2002/01/31 09:04:41 abw Exp $
 #
 #========================================================================
 
@@ -29,7 +29,7 @@ use base qw( Pod::POM::View );
 use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD $INDENT );
 use Text::Wrap;
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.2 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 $INDENT  = 0;
 

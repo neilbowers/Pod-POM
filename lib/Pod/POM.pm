@@ -16,7 +16,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: POM.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
+#   $Id: POM.pm,v 1.2 2002/01/31 09:04:39 abw Exp $
 #
 #========================================================================
 
@@ -32,7 +32,7 @@ use Pod::POM::View::Pod;
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 use base qw( Exporter );
 
-$VERSION = 0.12;
+$VERSION = 0.13;
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
@@ -266,13 +266,13 @@ sub parse_sequence {
                             ) 
                       )
 	   /gxs) {
-	if (length $1) {
+	if (defined $1) {
 	    ($cmd, $lparen) = ($1, $2);
 	    $lparen =~ s/\s$//;
 	    ($rparen = $lparen) =~ tr/</>/;
 	    push(@stack, [ $cmd, $lparen, $rparen, $name, $line, [ ] ]);
 	}
-	elsif (length $3) {
+	elsif (defined $3) {
 	    $rparen = $3;
 	    $rparen =~ s/^\s+//;
 	    if ($rparen eq $stack[-1]->[RPAREN]) {
@@ -287,7 +287,7 @@ sub parse_sequence {
 		push(@{ $stack[-1]->[CONTENT] }, $rparen);
 	    }
 	}
-	elsif (length $4) {
+	elsif (defined $4) {
 	    $plain = $4;
 	    push(@{ $stack[-1]->[CONTENT] }, $plain);
 	    $line += ($plain =~ tr/\n//);
