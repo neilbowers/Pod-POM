@@ -32,7 +32,7 @@ use Pod::POM::View::Pod;
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 use base qw( Exporter );
 
-$VERSION = 0.03;
+$VERSION = 0.11;
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class

@@ -191,6 +191,11 @@ sub view_textblock {
 
 sub view_verbatim {
     my ($self, $text) = @_;
+    for ($text) {
+	s/&/&amp;/g;
+	s/</&lt;/g;
+	s/>/&gt;/g;
+    }
     return "<pre>$text</pre>\n\n";
 }
 

@@ -138,7 +138,7 @@ F</usr/local/my/module/rocks> as well.
 
 <pre>    use My::Module;</pre>
 
-<pre>    my $module = My::Module->new();</pre>
+<pre>    my $module = My::Module-&gt;new();</pre>
 
 <h1>DESCRIPTION</h1>
 
