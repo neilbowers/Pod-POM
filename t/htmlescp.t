@@ -38,8 +38,9 @@ __DATA__
 I am a stupid fool who puts naked < & > characters in my POD
 instead of escaping them as E<lt> and E<gt>.
 
-Here is some B<bold> text, some I<italic> and something that looks 
-like an E<lt>htmlE<gt> tag.  This is some C<$code($arg1)>.
+Here is some B<bold> text, some I<italic> plus F</etc/fstab>
+file and something that looks like an E<lt>htmlE<gt> tag.
+This is some C<$code($arg1)>.
 
 ------------------------------------------------------------------------
 
@@ -48,7 +49,8 @@ like an E<lt>htmlE<gt> tag.  This is some C<$code($arg1)>.
 
 <p>I am a stupid fool who puts naked &lt; &amp; &gt; characters in my POD
 instead of escaping them as &lt; and &gt;.</p>
-<p>Here is some <b>bold</b> text, some <i>italic</i> and something that looks 
-like an &lt;html&gt; tag.  This is some <code>$code($arg1)</code>.</p>
+<p>Here is some <b>bold</b> text, some <i>italic</i> plus <i>/etc/fstab</i>
+file and something that looks like an &lt;html&gt; tag.
+This is some <code>$code($arg1)</code>.</p>
 </body></html>
 

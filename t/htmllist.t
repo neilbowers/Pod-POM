@@ -1,4 +1,6 @@
 #!/usr/bin/perl -w                                         # -*- perl -*-
+#
+# test the generation of HTML lists
 
 use strict;
 use lib qw( ./lib ../lib );

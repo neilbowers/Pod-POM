@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: HTML.pm,v 1.4 2002/02/06 16:45:23 abw Exp $
+#   $Id: HTML.pm,v 1.6 2002/03/18 07:47:36 stas Exp $
 #
 #========================================================================
 
@@ -29,7 +29,7 @@ use base qw( Pod::POM::View );
 use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD );
 use Text::Wrap;
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.4 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.6 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 my $HTML_PROTECT = 0;
 my @OVER;
@@ -228,6 +228,10 @@ sub view_seq_code {
     return "<code>$text</code>";
 }
 
+sub view_seq_file {
+    my ($self, $text) = @_;
+    return "<i>$text</i>";
+}
 
 sub view_seq_space {
     my ($self, $text) = @_;

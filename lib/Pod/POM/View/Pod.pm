@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Pod.pm,v 1.2 2002/01/31 09:04:41 abw Exp $
+#   $Id: Pod.pm,v 1.3 2002/04/22 04:29:10 stas Exp $
 #
 #========================================================================
 
@@ -29,7 +29,7 @@ use Pod::POM::View;
 use base qw( Pod::POM::View );
 use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD $MARKUP );
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.2 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.3 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 
 # create reverse lookup table mapping method name to original sequence
@@ -129,11 +129,13 @@ sub view_over {
 
 sub view_item {
     my ($self, $item) = @_;
-    return '=item ' 
-	. $item->title->present($self) 
-	. "\n\n"
+
+    my $title = $item->title();
+    $title = $title->present($self) if ref $title;
+    return "=item $title\n\n"
 	. $item->content->present($self);
 }
+
 
 sub view_for {
     my ($self, $for) = @_;

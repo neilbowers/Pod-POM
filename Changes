@@ -9,8 +9,30 @@
 #   Andy Wardley   <abw@kfs.org>
 #
 #------------------------------------------------------------------------
-# $Id: Changes,v 1.4 2002/02/25 10:59:11 abw Exp $
+# $Id: Changes,v 1.8 2003/07/24 15:40:56 abw Exp $
 #========================================================================
+
+#------------------------------------------------------------------------
+# Version 0.17  
+#------------------------------------------------------------------------
+
+* Pod::POM::View::Pod::view_item could have $title non reference, so
+  handle that gracefully.
+
+* add 'fallback => 1' to use of overload in Pod::POM::Node.
+
+#------------------------------------------------------------------------
+# Version 0.16  
+#------------------------------------------------------------------------
+
+* Pod::POM::View::Text and Pod::POM::View::HTML now implement F<>
+  rendering similar to I<>. Tests adjusted. [Stas Bekman]
+
+* Added 'bool' overload to Pod::POM::Node to prevent unwanted 
+  stringification of nodes simply to test their truth.  Also removed
+  C<length $text> test from Pod::POM::Nodes::Text::present() which
+  was having the same early stringification side-effect.
+
 
 #------------------------------------------------------------------------
 # Version 0.15  8th March 2002

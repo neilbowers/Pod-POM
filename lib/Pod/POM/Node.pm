@@ -6,16 +6,16 @@
 #   Base class for a node in a Pod::POM tree.
 #
 # AUTHOR
-#   Andy Wardley   <abw@kfs.org>
+#   Andy Wardley   <abw@wardley.org>
 #
 # COPYRIGHT
-#   Copyright (C) 2000, 2001 Andy Wardley.  All Rights Reserved.
+#   Copyright (C) 2000-2003 Andy Wardley.  All Rights Reserved.
 #
 #   This module is free software; you can redistribute it and/or
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Node.pm,v 1.3 2002/02/06 16:45:23 abw Exp $
+#   $Id: Node.pm,v 1.5 2003/07/24 15:41:00 abw Exp $
 #
 #========================================================================
 
@@ -28,7 +28,7 @@ use Pod::POM::Nodes;
 use Pod::POM::Constants qw( :status );
 use vars qw( $VERSION $DEBUG $ERROR $NODES $NAMES $AUTOLOAD );
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.3 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.5 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 $NODES   = {
     pod      => 'Pod::POM::Node::Pod',
@@ -49,7 +49,10 @@ $NAMES = {
 };
 
 # overload stringification to present node via a view
-use overload '""' => 'present';
+use overload 
+    '""'     => 'present',
+    fallback => 1,
+    'bool'   => sub { 1 };
 
 # alias meta() to metadata()
 *meta = \*metadata;
@@ -178,7 +181,7 @@ sub present {
     $view    ||= $Pod::POM::DEFAULT_VIEW;
     my $type   = $self->{ type };
     my $method = "view_$type";
-    DEBUG("presenting method $method\n");
+    DEBUG("presenting method $method to $view\n");
     return $view->$method($self, @args);
 }
 

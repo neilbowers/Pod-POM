@@ -16,7 +16,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Nodes.pm,v 1.2 2002/01/31 09:04:40 abw Exp $
+#   $Id: Nodes.pm,v 1.3 2002/12/06 12:48:57 abw Exp $
 #
 #========================================================================
 
@@ -30,7 +30,7 @@ use Pod::POM::Node;
 use vars qw( $VERSION $DEBUG $ERROR @EXPORT_OK @EXPORT_FAIL );
 use base qw( Exporter );
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.2 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.3 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 
 
@@ -203,8 +203,8 @@ sub new {
     my $pom   = shift;
     my $text  = shift;
     $text = $pom->parse_sequence($text)
-	|| return $class->error($pom->error())
-	    if length $text;
+        || return $class->error($pom->error())
+            if length $text;
     $class->SUPER::new($pom, $text);
 }
 
@@ -218,7 +218,7 @@ sub present {
     $view ||= $Pod::POM::DEFAULT_VIEW;
 
     $text = $text->present($view) 
-	if ref $text && length $text;
+	if ref $text;
 
     $view->view_textblock($text);
 }
@@ -245,7 +245,7 @@ use vars qw( %NAME );
     
 sub new {
     my ($class, $self) = @_;
-    local $" = '][';
+    local $" = '] [';
     bless \$self, $class;
 }
 
@@ -258,23 +258,22 @@ sub present {
     my ($cmd, $method, $result);
     $view ||= $Pod::POM::DEFAULT_VIEW;
 
-    if (ref $$self eq 'ARRAY') {
-	$self = $$self;
-	my $text = join('', 
-			map { ref $_ ? $_->present($view) 
-				     : $view->view_seq_text($_) } 
-			@{ $self->[CONTENT] });
+    $self = $$self;
+    return $self unless ref $self eq 'ARRAY';
 
-	if ($cmd = $self->[CMD]) {
-	    my $method = $NAME{ $cmd } || $cmd;
-	    $method = "view_seq_$method";
-	    return $view->$method($text);
-	}
-	else {
-	    return $text;
-	}
+    my $text = join('', 
+                    map { ref $_ ? $_->present($view) 
+                                 : $view->view_seq_text($_) } 
+                    @{ $self->[CONTENT] });
+    
+    if ($cmd = $self->[CMD]) {
+        my $method = $NAME{ $cmd } || $cmd;
+        $method = "view_seq_$method";
+        return $view->$method($text);
     }
-    return $$self;
+    else {
+        return $text;
+    }
 }
 
 
@@ -292,7 +291,7 @@ sub new {
 sub present {
     my ($self, $view) = @_;
     $view ||= $Pod::POM::DEFAULT_VIEW;
-    join('', map { ref $_ ? $_->present($view) : $_ } @$self);
+    return join('', map { ref $_ ? $_->present($view) : $_ } @$self);
 }
 
 

@@ -7,16 +7,16 @@
 #   hereafter known as the POD Object Model (POM).
 #
 # AUTHOR
-#   Andy Wardley   <abw@kfs.org>
+#   Andy Wardley   <abw@wardley.org>
 #
 # COPYRIGHT
-#   Copyright (C) 2000, 2001 Andy Wardley.  All Rights Reserved.
+#   Copyright (C) 2000-2003 Andy Wardley.  All Rights Reserved.
 #
 #   This module is free software; you can redistribute it and/or
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: POM.pm,v 1.4 2002/02/25 11:02:02 abw Exp $
+#   $Id: POM.pm,v 1.7 2003/07/24 15:40:59 abw Exp $
 #
 #========================================================================
 
@@ -32,7 +32,7 @@ use Pod::POM::View::Pod;
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 use base qw( Exporter );
 
-$VERSION = 0.15;
+$VERSION = 0.17;
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class

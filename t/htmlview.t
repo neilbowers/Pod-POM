@@ -298,7 +298,7 @@ HTML
 <h1>SEE ALSO</h1>
 
 <p>See also <i>Test Page 2</i>, the <i>Your::Module</i> and <i>Their::Module</i>
-manpages and the other interesting file /usr/local/my/module/rocks
+manpages and the other interesting file <i>/usr/local/my/module/rocks</i>
 as well.</p>
 </body></html>
 

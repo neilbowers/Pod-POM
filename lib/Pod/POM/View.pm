@@ -16,7 +16,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: View.pm,v 1.3 2002/02/25 10:58:10 abw Exp $
+#   $Id: View.pm,v 1.4 2002/12/06 12:49:25 abw Exp $
 #
 #========================================================================
 
@@ -27,7 +27,7 @@ require 5.004;
 use strict;
 use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD $INSTANCE );
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.3 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.4 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 
 
@@ -106,9 +106,6 @@ sub AUTOLOAD {
 
     $name =~ s/.*:://;
     return if $name eq 'DESTROY';
-
-#    my ($pkg, $file, $line) = caller;
-#    print STDERR "called AUTOLOAD $name from $file line $line\n";
 
     if ($name =~ s/^view_//) {
 	return $self->view($name, @_);
