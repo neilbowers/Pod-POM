@@ -173,7 +173,7 @@ sub present {
     $view    ||= $Pod::POM::DEFAULT_VIEW;
     my $type   = $self->{ type };
     my $method = "view_$type";
-
+    DEBUG("presenting method $method\n");
     return $view->$method($self);
 }
 
@@ -266,7 +266,7 @@ Pod::POM::Node - base class for a POM node
 
     %ATTRIBS =   ( indent => 4 );
     @ACCEPT  = qw( over item begin for text verbatim );
-    $EXPECT  = qw( back );
+    $EXPECT  =  q( back );
 
     package main;
     my $list = Pod::POM::Node::Over->new(8);
@@ -395,7 +395,7 @@ successful termination.
 
     %ATTRIBS =   ( indent => 4 );
     @ACCEPT  = qw( over item begin for text verbatim );
-    $EXPECT  = qw( back );
+    $EXPECT  =  q( back );
 
     package main;
     my $list = Pod::POM::Node::Over->new();
@@ -446,7 +446,7 @@ The present() method is used to present a node through a particular view.
 This simply maps the node type to a method which is then called against the 
 view object.  This is known as 'double dispatch'.
 
-    my $view = Pod::POM::View::HTML;
+    my $view = 'Pod::POM::View::HTML';
     print $list->present($view);
 
 The method name is constructed from the node type prefixed by 'view_'.  

@@ -24,12 +24,24 @@ package Pod::POM::View::Text;
 require 5.004;
 
 use strict;
+use Pod::POM::View;
 use base qw( Pod::POM::View );
-use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD );
+use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD $INDENT );
 use Text::Wrap;
 
 $VERSION = sprintf("%d.%02d", q$Revision$ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
+$INDENT  = 0;
+
+
+sub new {
+    my $class = shift;
+    my $args  = ref $_[0] eq 'HASH' ? shift : { @_ };
+    bless { 
+	INDENT => 0,
+	%$args,
+    }, $class;
+}
 
 
 sub view {
@@ -58,27 +70,51 @@ sub view {
     }
 }
 
+
 sub view_head1 {
     my ($self, $head1) = @_;
-    my $title = $head1->title->present($self);
-    return "$title\n" 
-	. wrap('    ', '    ', $head1->content->present($self));
+    my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+    my $pad = ' ' x $$indent;
+    my $title = wrap($pad, $pad, 
+		     $head1->title->present($self));
+    
+    $$indent += 4;
+    my $output = "$title\n" . $head1->content->present($self);
+    $$indent -= 4;
+
+    return $output;
 }
+
 
 sub view_head2 {
     my ($self, $head2) = @_;
-    my $title = $head2->title->present($self);
-    return "$title\n"
-	. wrap('    ', '    ', $head2->content->present($self));
+    my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+    my $pad = ' ' x $$indent;
+    my $title = wrap($pad, $pad, 
+		     $head2->title->present($self));
+
+    $$indent += 4;
+    my $output = "$title\n" . $head2->content->present($self);
+    $$indent -= 4;
+
+    return $output;
 }
+
 
 sub view_item {
     my ($self, $item) = @_;
-    return '* ' 
-	. $item->title->present($self) 
-	. "\n\n"
-	. wrap('  ', '  ', $item->content->present($self));
+    my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+    my $pad = ' ' x $$indent;
+    my $title = wrap($pad . '* ', $pad . '  ', 
+		     $item->title->present($self));
+
+    $$indent += 2;
+    my $content = $item->content->present($self);
+    $$indent -= 2;
+    
+    return "$title\n\n$content";
 }
+
 
 sub view_for {
     my ($self, $for) = @_;
@@ -86,37 +122,52 @@ sub view_for {
     return $for->text()
 	. "\n\n";
 }
+
     
 sub view_begin {
     my ($self, $begin) = @_;
     return '' unless $begin->format() =~ /\btext\b/;
     return $begin->content->present($self);
 }
+
     
 sub view_textblock {
     my ($self, $text) = @_;
-    return wrap('', '', $text) . "\n\n";
+    my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+    $text =~ s/\s+/ /mg;
+
+    $$indent ||= 0;
+    my $pad = ' ' x $$indent;
+    return wrap($pad, $pad, $text) . "\n\n";
 }
+
 
 sub view_verbatim {
     my ($self, $text) = @_;
+    my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+    my $pad = ' ' x $$indent;
+    $text =~ s/^/$pad/mg;
     return "$text\n\n";
 }
+
 
 sub view_seq_bold {
     my ($self, $text) = @_;
     return "*$text*";
 }
 
+
 sub view_seq_italic {
     my ($self, $text) = @_;
     return "_${text}_";
 }
 
+
 sub view_seq_code {
     my ($self, $text) = @_;
     return "'$text'";
 }
+
 
 my $entities = {
     gt   => '>',
@@ -124,6 +175,7 @@ my $entities = {
     amp  => '&',
     quot => '"',
 };
+
 
 sub view_seq_entity {
     my ($self, $entity) = @_;

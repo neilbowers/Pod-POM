@@ -81,7 +81,7 @@ use vars qw( %ATTRIBS @ACCEPT $EXPECT $ERROR );
 
 %ATTRIBS =   ( indent => 4 );
 @ACCEPT  = qw( over item begin for text verbatim code );
-$EXPECT  = qw( back );
+$EXPECT  = 'back';
 
 
 #------------------------------------------------------------------------
@@ -108,7 +108,7 @@ use vars qw( %ATTRIBS @ACCEPT $EXPECT $ERROR );
 
 %ATTRIBS =   ( format => undef );
 @ACCEPT  = qw( text verbatim code );
-$EXPECT  = qw( end );
+$EXPECT  = 'end';
 
 
 #------------------------------------------------------------------------

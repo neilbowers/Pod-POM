@@ -13,6 +13,32 @@
 #========================================================================
 
 #------------------------------------------------------------------------
+# Version 0.02  09-Apr-2001
+#------------------------------------------------------------------------
+
+* Fixed several bugs in Pod/POM/Nodes.pm where I had relied on the 5.6.0
+  "Do The Right Thing" behaviour of C<$EXPECT = qw( ... )> to correctly
+  quote a single string.  Now changed to C<$EXPECT = '...'>.  Thanks
+  to Randal Schwartz for identifying the problem.
+
+* Added C<use Pod::POM::View> to Pod::POM::View::* modules because 
+  C<use base qw( Pod::POM::View )> doesn't do it automatically for
+  you in some earlier versions of Perl, even if it says it does.
+
+* Updated documentation to refer to released Template Toolkit v2.02
+  and added a little more on using the Pod plugin and VIEW directive
+  to munge Pod.
+
+* Changed the Pod::POM::View::Text module to be smarter about indenting,
+  keeping track of a current indent level via an internal INDENT member
+  (when used as an object) or the package variable $INDENT (when used
+  as a class) instead of the previous approach of blindly stuffing 
+  everything through Text::Wrap as an afterthought.  Converting Pod to
+  text is now significantly faster and should generate correctly indented
+  output.
+  
+
+#------------------------------------------------------------------------
 # Version 0.01  09-Jan-2001
 #------------------------------------------------------------------------
 

@@ -31,11 +31,11 @@ use Pod::POM::View::Pod;
 
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 
-$VERSION = 0.1;
+$VERSION = 0.02;
 $DEBUG   = 0 unless defined $DEBUG;
-$ROOT    = qw( Pod::POM::Node::Pod );		# root node class
-$TEXTSEQ = qw( Pod::POM::Node::Sequence );	# text sequence class
-$DEFAULT_VIEW = qw( Pod::POM::View::Pod );	# default view class
+$ROOT    = 'Pod::POM::Node::Pod';               # root node class
+$TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
+$DEFAULT_VIEW = 'Pod::POM::View::Pod';          # default view class
 
 
 #------------------------------------------------------------------------
@@ -974,20 +974,23 @@ formatting conventions.  By clearly separating the content
 (represented by one or more views) it becomes much easier to achieve
 this.
 
-The latest version (2.01) of the Template Toolkit provides a Pod::POM
-plugin to interface to this module.  In addition, it supports a new
-VIEW directive which allows you to define the presentation elements as
-template blocks.  At the time of writing, version 2.01 hasn't been 
-officially released to CPAN, but a preview is available from the 
-Template Toolkit web site:
+The latest version of the Template Toolkit (2.02 at the time of
+writing) provides a Pod plugin to interface to this module.  It also
+implements a new (but experimental) VIEW directive which can be used
+to build different presentation styles for converting Pod to other
+formats.  The Template Toolkit is available from CPAN:
 
-    http://www.template-toolkit.org/
+    http://www.cpan.org/modules/by-module/Template/
 
-The precise syntax and structure of the VIEW directive is subject to 
-change, but at present it can be used to define a view something like 
-this:
+Template Toolkit views are similar to the Pod::POM::View objects
+described above, except that they allow the presentation style for
+each Pod component to be written as a template file or block rather
+than an object method.  The precise syntax and structure of the VIEW
+directive is subject to change (given that it's still experimental),
+but at present it can be used to define a view something like this:
 
     [% VIEW myview %]
+
        [% BLOCK view_head1 %]
           <h1>[% item.title.present(view) %]</h1>
           [% item.content.present(view) %]
@@ -1004,7 +1007,8 @@ this:
 
 A plugin is provided to interface to the Pod::POM module:
 
-    [% USE pom = Pod.POM(myfile) %]
+    [% USE pod %]
+    [% pom = pod.parse('/path/to/podfile') %]
 
 The returned Pod Object Model instance can then be navigated and
 presented via the view in almost any way imaginable:
@@ -1022,9 +1026,33 @@ presented via the view in almost any way imaginable:
        [% section.present(myview) %]
     [% END %]
 
-As noted above this is all still experimental but should stabilise
-with the release of the Template Toolkit 2.01, expected some time late
-in January 2001.  This documentation will be updated at that time.
+You can either pass a reference to the VIEW (myview) to the 
+present() method of a Pod::POM node:
+
+    [% pom.present(myview) %]	    # present entire document
+
+Or alternately call the print() method on the VIEW, passing the 
+Pod::POM node as an argument:
+
+    [% myview.print(pom) %]
+
+Internally, the view calls the present() method on the node,
+passing itself as an argument.  Thus it is equivalent to the 
+previous example.
+
+The Pod::POM node and the view conspire to "Do The Right Thing" to 
+process the right template block for the node.  A reference to the
+node is available within the template as the 'item' variable.
+
+   [% BLOCK view_head2 %]
+      <h2>[% item.title.present(view) %]</h2>
+      [% item.content.present(view) %]
+   [% END %]
+
+The Template Toolkit documentation contains further information on
+defining and using views.  However, as noted above, this may be
+subject to change or incomplete pending further development of the 
+VIEW directive.
 
 =head1 METHODS
 
@@ -1377,7 +1405,7 @@ Andy Wardley E<lt>abw@kfs.orgE<gt>
 
 =head1 VERSION
 
-This is version 0.1 of the Pod::POM module.
+This is version 0.2 of the Pod::POM module.
 
 =head1 COPYRIGHT
 

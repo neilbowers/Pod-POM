@@ -14,7 +14,6 @@ lib/Pod/POM/View.pm
 lib/Pod/POM/View/HTML.pm
 lib/Pod/POM/View/Pod.pm
 lib/Pod/POM/View/Text.pm
-lib/text
 t/code.t
 t/complete.t
 t/head.t
@@ -23,3 +22,4 @@ t/test.pod
 t/text.t
 t/textview.t
 t/warn.t
+t/wrap.t

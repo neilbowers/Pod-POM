@@ -1,6 +1,5 @@
 * document Pod::POM::View and friends
 
-* Pod::POM::View::Text uses Text::Wrap and seems to have some
-  problems getting the wrapping right.
-
 * fix link generation via L<...>
+
+* more views for different styles, formats, etc.

@@ -24,6 +24,7 @@ package Pod::POM::View::HTML;
 require 5.004;
 
 use strict;
+use Pod::POM::View;
 use base qw( Pod::POM::View );
 use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD );
 use Text::Wrap;
