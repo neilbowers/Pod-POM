@@ -1,0 +1,59 @@
+#!/usr/bin/perl -w
+
+use Pod::POM;
+use File::Basename;
+
+my $PROGRAM = 'pom2';
+my $program = basename($0);
+my $format;
+my $views = {
+    pod  => 'Pod',
+    text => 'Text',
+    html => 'HTML',
+};
+
+die usage() if grep(/^--?h(elp)?$/, @ARGV);
+
+if ($program =~ /^$PROGRAM(.+)$/) {
+    $format = $1;
+}
+else {
+    $format = shift 
+	|| die usage('no output format specified');
+}
+
+my $file = shift 
+    || die usage('no filename specified');
+
+$format = lc $format;
+my $view = $views->{ $format } 
+    || die usage("invalid format '$format', try one of: " 
+	        . join(', ', keys %$views));
+
+$view = "Pod::POM::View::$view";
+Pod::POM->default_view($view)
+    || die "$Pod::POM::ERROR\n";
+
+my $parser = Pod::POM->new( warn => 1 )
+    || die "$Pod::POM::ERROR\n";
+
+my $pom = $parser->parse_file($file)
+    || die $parser->error(), "\n";
+
+print $pom;
+
+
+#------------------------------------------------------------------------
+
+sub usage {
+    my $msg = shift || '';
+
+    if ($program =~ /^$PROGRAM$/) {
+	$program = "pod2 format";
+    }
+    
+    return <<EOF;
+${msg}
+usage: $program file
+EOF
+}
