@@ -16,17 +16,19 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Nodes.pm,v 1.1.1.1 2000/11/17 17:31:53 abw Exp $
+#   $Id: Nodes.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
 #
 #========================================================================
 
 package Pod::POM::Nodes;
 
 require 5.004;
+require Exporter;
 
 use strict;
 use Pod::POM::Node;
-use vars qw( $VERSION $DEBUG $ERROR );
+use vars qw( $VERSION $DEBUG $ERROR @EXPORT_OK @EXPORT_FAIL );
+use base qw( Exporter );
 
 $VERSION = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
@@ -37,7 +39,7 @@ package Pod::POM::Node::Pod;
 use base qw( Pod::POM::Node );
 use vars qw( @ACCEPT $ERROR );
 
-@ACCEPT = qw( head1 head2 over begin for text verbatim code );
+@ACCEPT = qw( head1 head2 head3 head4 over begin for text verbatim code );
 
 
 #------------------------------------------------------------------------
@@ -46,7 +48,7 @@ use base qw( Pod::POM::Node );
 use vars qw( %ATTRIBS @ACCEPT $ERROR );
 
 %ATTRIBS =   ( title => undef );
-@ACCEPT  = qw( head2 over begin for text verbatim code );
+@ACCEPT  = qw( head2 head3 head4 over begin for text verbatim code );
 
 sub new {
     my ($class, $pom, $title) = @_;
@@ -59,6 +61,40 @@ sub new {
 
 #------------------------------------------------------------------------
 package Pod::POM::Node::Head2;
+use base qw( Pod::POM::Node );
+use vars qw( %ATTRIBS @ACCEPT $ERROR );
+
+%ATTRIBS =   ( title => undef );
+@ACCEPT  = qw( head3 head4 over begin for text verbatim code );
+
+sub new {
+    my ($class, $pom, $title) = @_;
+    $title = $pom->parse_sequence($title)
+	|| return $class->error($pom->error())
+	    if length $title;
+    $class->SUPER::new($pom, $title);
+}
+
+
+#------------------------------------------------------------------------
+package Pod::POM::Node::Head3;
+use base qw( Pod::POM::Node );
+use vars qw( %ATTRIBS @ACCEPT $ERROR );
+
+%ATTRIBS =   ( title => undef );
+@ACCEPT  = qw( head4 over begin for text verbatim code );
+
+sub new {
+    my ($class, $pom, $title) = @_;
+    $title = $pom->parse_sequence($title)
+	|| return $class->error($pom->error())
+	    if length $title;
+    $class->SUPER::new($pom, $title);
+}
+
+
+#------------------------------------------------------------------------
+package Pod::POM::Node::Head4;
 use base qw( Pod::POM::Node );
 use vars qw( %ATTRIBS @ACCEPT $ERROR );
 
@@ -186,6 +222,7 @@ sub present {
 
     $view->view_textblock($text);
 }
+
 
 #------------------------------------------------------------------------
 package Pod::POM::Node::Sequence;

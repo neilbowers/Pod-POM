@@ -6,9 +6,9 @@ use Pod::POM::Test;
 
 #$Pod::POM::DEBUG = 1;
 #$Pod::POM::Node::DEBUG = 1;
-my $DEBUG = 1;
+#my $DEBUG = 1;
 
-ntests(11);
+ntests(13);
 
 package My::View;
 use base qw( Pod::POM::View );
@@ -43,6 +43,11 @@ foreach my $head1 ($pom->head1()) {
     match( $head1->title(), shift @expect );
 }
 
+my $h3 = $pom->head1->[1]->head2->[0]->head3->[0];
+match($view->print($h3->title), 'New Heading');
+
+my $h4 = $h3->head4->[0];
+match($view->print($h4->title), 'Newer Heading');
 
 __DATA__
 =head1 NAME
@@ -64,3 +69,12 @@ These are the methods:
 This is the constructor method.
 
 =back
+
+=head3 New Heading
+
+Blah blah
+
+=head4 Newer Heading
+
+yah yah
+

@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id$
+#   $Id: Text.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
 #
 #========================================================================
 
@@ -29,7 +29,7 @@ use base qw( Pod::POM::View );
 use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD $INDENT );
 use Text::Wrap;
 
-$VERSION = sprintf("%d.%02d", q$Revision$ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 $INDENT  = 0;
 
@@ -95,6 +95,36 @@ sub view_head2 {
 
     $$indent += 4;
     my $output = "$title\n" . $head2->content->present($self);
+    $$indent -= 4;
+
+    return $output;
+}
+
+
+sub view_head3 {
+    my ($self, $head3) = @_;
+    my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+    my $pad = ' ' x $$indent;
+    my $title = wrap($pad, $pad, 
+		     $head3->title->present($self));
+
+    $$indent += 4;
+    my $output = "$title\n" . $head3->content->present($self);
+    $$indent -= 4;
+
+    return $output;
+}
+
+
+sub view_head4 {
+    my ($self, $head4) = @_;
+    my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+    my $pad = ' ' x $$indent;
+    my $title = wrap($pad, $pad, 
+		     $head4->title->present($self));
+
+    $$indent += 4;
+    my $output = "$title\n" . $head4->content->present($self);
     $$indent -= 4;
 
     return $output;

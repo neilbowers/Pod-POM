@@ -16,7 +16,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id$
+#   $Id: POM.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
 #
 #========================================================================
 
@@ -30,12 +30,32 @@ use Pod::POM::Nodes;
 use Pod::POM::View::Pod;
 
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
+use base qw( Exporter );
 
-$VERSION = 0.02;
+$VERSION = 0.03;
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
 $DEFAULT_VIEW = 'Pod::POM::View::Pod';          # default view class
+
+
+#------------------------------------------------------------------------
+# allow 'meta' to be specified as a load option to activate =meta tags
+#------------------------------------------------------------------------
+
+use vars qw( @EXPORT_FAIL @EXPORT_OK $ALLOW_META );
+@EXPORT_OK   = qw( meta );
+@EXPORT_FAIL = qw( meta );
+$ALLOW_META  = 0;
+
+sub export_fail {
+    my $class = shift;
+    my $meta  = shift;
+    return ($meta, @_) unless $meta eq 'meta';
+    $ALLOW_META++;
+    return @_;
+}
+
 
 
 #------------------------------------------------------------------------
@@ -49,8 +69,9 @@ sub new {
     bless {
 	CODE     => $config->{ code } || 0,
         WARN     => $config->{ warn } || 0,
-	FILENAME => '',
+	META     => $config->{ meta } || $ALLOW_META,
 	WARNINGS => [ ],
+	FILENAME => '',
 	ERROR    => '',
     }, $class;
 }
@@ -160,7 +181,14 @@ sub parse_text {
 	    # switch on for =pod or any other =cmd, switch off for =cut
 	    if    ($type eq 'pod') { $inpod = 1; next }
 	    elsif ($type eq 'cut') { $inpod = 0; next }
-	    else                   { $inpod = 1 }
+	    else                   { $inpod = 1 };
+
+	    if ($type eq 'meta') {
+		$self->{ META }
+		    ? $stack[0]->metadata(split(/\s+/, $para, 2))
+		    : $self->warning("metadata not allowed", $name, $$line);
+		next;
+	    }
 	}
 	elsif (! $inpod) {
 	    next unless $code;
@@ -974,7 +1002,7 @@ formatting conventions.  By clearly separating the content
 (represented by one or more views) it becomes much easier to achieve
 this.
 
-The latest version of the Template Toolkit (2.02 at the time of
+The latest version of the Template Toolkit (2.06 at the time of
 writing) provides a Pod plugin to interface to this module.  It also
 implements a new (but experimental) VIEW directive which can be used
 to build different presentation styles for converting Pod to other
@@ -1151,6 +1179,26 @@ warning message as an argument.
     my $parser = Pod::POM->new( warn => \&my_warning );
     my $podpom = $parser->parse_file($filename);
 
+=item meta
+
+The 'meta' option can be set to allow C<=meta> tags within the Pod
+document.  
+
+    my $parser = Pod::POM->new( meta => 1 );
+    my $podpom = $parser->parse_file($filename);
+
+This is an experimental feature which is not part of standard
+POD.  For example:
+
+    =meta author Andy Wardley
+
+These are made available as metadata items within the root
+node of the parsed POM.
+
+    my $author = $podpom->metadata('author');
+
+See the L<METADATA|METADATA> section below for further information.
+
 =back
 
 =head2 parse_file($file)
@@ -1230,12 +1278,30 @@ next C<=head1> tag or the end of the file.
 
 Attributes: title
 
-Content elements: head2, over, begin, for, verbatim, text, code.
+Content elements: head2, head3, head4, over, begin, for, verbatim, text, code.
 
 =item head2
 
 A C<head2> node contains the Pod content from a C<=head2> tag up to the 
 next C<=head1> or C<=head2> tag or the end of the file.
+
+Attributes: title
+
+Content elements: head3, head4, over, begin, for, verbatim, text, code.
+
+=item head3
+
+A C<head3> node contains the Pod content from a C<=head3> tag up to the 
+next C<=head1>, C<=head2> or C<=head3> tag or the end of the file.
+
+Attributes: title
+
+Content elements: head4, over, begin, for, verbatim, text, code.
+
+=item head4
+
+A C<head4> node contains the Pod content from a C<=head4> tag up to the 
+next C<=head1>, C<=head2>, C<=head3> or C<=head4> tag or the end of the file.
 
 Attributes: title
 
@@ -1399,13 +1465,51 @@ it encounters.  The regenerated Pod output is printed to STDOUT.
 
     $ pomcheck -f My/Module.pm > newfile
 
+=head1 METADATA
+
+This module includes support for an experimental new C<=meta> tag.  This
+is disabled by default but can be enabled by loading Pod::POM with the 
+C<meta> option.
+
+    use Pod::POM qw( meta );
+
+Alternately, you can specify the C<meta> option to be any true value when 
+you instantiate a Pod::POM parser:
+
+    my $parser = Pod::POM->new( meta => 1 );
+    my $pom    = $parser->parse_file($filename);
+
+Any C<=meta> tags in the document will be stored as metadata items in the 
+root node of the Pod model created.  
+
+For example:
+
+    =meta module Foo::Bar
+
+    =meta author Andy Wardley
+
+You can then access these items via the metadata() method.
+
+    print "module: ", $pom->metadata('module'), "\n";
+    print "author: ", $pom->metadata('author'), "\n";
+
+or
+
+    my $metadata = $pom->metadata();
+    print "module: $metadata->{ module }\n";
+    print "author: $metadata->{ author }\n";
+
+Please note that this is an experimental feature which is not supported by
+other POD processors and is therefore likely to be most incompatible.  Use
+carefully.
+    
 =head1 AUTHOR
 
 Andy Wardley E<lt>abw@kfs.orgE<gt>
 
 =head1 VERSION
 
-This is version 0.2 of the Pod::POM module.
+This is version 0.3 of the Pod::POM module.
 
 =head1 COPYRIGHT
 

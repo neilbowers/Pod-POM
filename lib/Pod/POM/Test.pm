@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id$
+#   $Id: Test.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
 #
 #========================================================================
 
@@ -28,7 +28,7 @@ use Pod::POM;
 use base qw( Exporter );
 use vars qw( $VERSION @EXPORT );
 
-$VERSION = sprintf("%d.%02d", q$Revision$ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
 @EXPORT  = qw( ntests ok match assert );
 
 my $ok_count;

@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id$
+#   $Id: Pod.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
 #
 #========================================================================
 
@@ -29,7 +29,7 @@ use Pod::POM::View;
 use base qw( Pod::POM::View );
 use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD $MARKUP );
 
-$VERSION = sprintf("%d.%02d", q$Revision$ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 
 # create reverse lookup table mapping method name to original sequence
@@ -73,11 +73,13 @@ sub view {
     }
 }
 
+
 sub view_pod {
     my ($self, $pod) = @_;
 #    return "=pod\n\n" . $pod->content->present($self) . "=cut\n\n";
     return $pod->content->present($self);
 }
+
 
 sub view_head1 {
     my ($self, $head1) = @_;
@@ -87,6 +89,7 @@ sub view_head1 {
 	. $head1->content->present($self);
 }
 
+
 sub view_head2 {
     my ($self, $head2) = @_;
     return '=head2 ' 
@@ -94,6 +97,25 @@ sub view_head2 {
 	. "\n\n" 
 	. $head2->content->present($self);
 }
+
+
+sub view_head3 {
+    my ($self, $head3) = @_;
+    return '=head3 ' 
+	. $head3->title->present($self) 
+	. "\n\n" 
+	. $head3->content->present($self);
+}
+
+
+sub view_head4 {
+    my ($self, $head4) = @_;
+    return '=head4 ' 
+	. $head4->title->present($self) 
+	. "\n\n" 
+	. $head4->content->present($self);
+}
+
 
 sub view_over {
     my ($self, $over) = @_;
@@ -103,6 +125,7 @@ sub view_over {
 	. $over->content->present($self) 
 	. "=back\n\n";
 }
+
 
 sub view_item {
     my ($self, $item) = @_;
@@ -121,6 +144,7 @@ sub view_for {
 	. $for->content->present($self);
 }
     
+
 sub view_begin {
     my ($self, $begin) = @_;
     return '=begin ' 
@@ -130,18 +154,27 @@ sub view_begin {
         . "=end\n\n";
 }
     
+
 sub view_textblock {
     my ($self, $text) = @_;
     return "$text\n\n";
 }
+
 
 sub view_verbatim {
     my ($self, $text) = @_;
     return "$text\n\n";
 }
 
-    
-    
+
+sub view_meta {
+    my ($self, $meta) = @_;
+    return '=meta '
+	. $meta->name()
+	. "\n\n"
+	. $meta->content->present($self)
+        . "=end\n\n";
+}
 
 
 1;

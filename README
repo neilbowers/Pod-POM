@@ -75,8 +75,8 @@ INSTALLATION
 
     Installation is as per usual:
 
-	$ tar zxf Pod-POM-0.2.tar.gz
-        $ cd Pod-POM-0.2
+	$ tar zxf Pod-POM-0.03.tar.gz
+        $ cd Pod-POM-0.03
         $ perl Makefile.PL
 	$ make
 	$ make test
@@ -86,7 +86,7 @@ AUTHOR
     Andy Wardley <abw@kfs.org>
     
 VERSION
-    This is version 0.02 of the Pod::POM module.
+    This is version 0.03 of the Pod::POM module.
     
 COPYRIGHT
     Copyright (C) 2000, 2001 Andy Wardley.  All Rights Reserved.

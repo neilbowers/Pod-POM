@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id$
+#   $Id: Constants.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
 #
 #========================================================================
 
@@ -27,7 +27,7 @@ use strict;
 use vars qw( $VERSION @SEQUENCE @STATUS @EXPORT_OK %EXPORT_TAGS );
 use base qw( Exporter );
 
-$VERSION   = sprintf("%d.%02d", q$Revision$ =~ /(\d+)\.(\d+)/);
+$VERSION   = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
 @SEQUENCE  = qw( CMD LPAREN RPAREN FILE LINE CONTENT );
 @STATUS    = qw( IGNORE REDUCE REJECT );
 @EXPORT_OK = ( @SEQUENCE, @STATUS );

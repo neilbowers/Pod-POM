@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Node.pm,v 1.1.1.1 2000/11/17 17:31:53 abw Exp $
+#   $Id: Node.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
 #
 #========================================================================
 
@@ -34,6 +34,8 @@ $NODES   = {
     pod      => 'Pod::POM::Node::Pod',
     head1    => 'Pod::POM::Node::Head1',
     head2    => 'Pod::POM::Node::Head2',
+    head3    => 'Pod::POM::Node::Head3',
+    head4    => 'Pod::POM::Node::Head4',
     over     => 'Pod::POM::Node::Over',
     item     => 'Pod::POM::Node::Item',
     begin    => 'Pod::POM::Node::Begin',
@@ -48,6 +50,9 @@ $NAMES = {
 
 # overload stringification to present node via a view
 use overload '""' => 'present';
+
+# alias meta() to metadata()
+*meta = \*metadata;
 
 
 #------------------------------------------------------------------------
@@ -175,6 +180,33 @@ sub present {
     my $method = "view_$type";
     DEBUG("presenting method $method\n");
     return $view->$method($self);
+}
+
+
+#------------------------------------------------------------------------
+# metadata()
+# metadata($key)
+# metadata($key, $value)
+#
+# Returns the metadata hash when called without any arguments.  Returns
+# the value of a metadata item when called with a single argument.  
+# Sets a metadata item to a value when called with two arguments.
+#------------------------------------------------------------------------
+
+sub metadata {
+    my ($self, $key, $value) = @_;
+    my $metadata = $self->{ METADATA } ||= { };
+
+    return $metadata unless defined $key;
+
+    if (defined $value) {
+	$metadata->{ $key } = $value;
+    }
+    else {
+	$value = $self->{ METADATA }->{ $key };
+	return defined $value ? $value 
+	    : $self->error("no such metadata item: $key");
+    }
 }
 
 

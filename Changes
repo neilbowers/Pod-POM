@@ -9,8 +9,25 @@
 #   Andy Wardley   <abw@kfs.org>
 #
 #------------------------------------------------------------------------
-# $Id: Changes,v 1.1.1.1 2000/11/17 17:31:53 abw Exp $
+# $Id: Changes,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
 #========================================================================
+
+#------------------------------------------------------------------------
+# Version 0.03  26th November 2001
+#------------------------------------------------------------------------
+
+* Fixed HTML view_head1() to remove illegal <ul> ... </ul> tags.  Also
+  modified view_over() to detect the type of the first item 
+  (e.g. '=item *', '=item 1.' or '=item foo') and adjust accordingly to
+  create a '<ul>...</ul>' or '<ol>...</ol>' list.  Item titles of the 
+  form '*' or '1.' then get stripped off as appropiate.   Thanks to 
+  Stas Bekman for raising these issues.
+
+* Added support for new =head3 and =head4 POD tags, also due to prodding 
+  from Stas.  :-)
+
+* Added support for experimental 'meta' tag.  Disabled by default.
+
 
 #------------------------------------------------------------------------
 # Version 0.02  09-Apr-2001
