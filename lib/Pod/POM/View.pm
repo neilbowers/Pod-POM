@@ -16,7 +16,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: View.pm,v 1.1.1.1 2001/05/17 08:49:34 abw Exp $
+#   $Id: View.pm,v 1.3 2002/02/25 10:58:10 abw Exp $
 #
 #========================================================================
 
@@ -25,9 +25,9 @@ package Pod::POM::View;
 require 5.004;
 
 use strict;
-use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD );
+use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD $INSTANCE );
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 1.3 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 
 
@@ -54,6 +54,50 @@ sub view {
     return $node;
 }
 
+
+sub instance {
+    my $self  = shift;
+    my $class = ref $self || $self;
+
+    no strict 'refs';
+    my $instance = \${"$class\::_instance"};
+
+    defined $$instance
+	 ?  $$instance
+	 : ($$instance = $class->new(@_));
+}
+
+
+sub visit {
+    my ($self, $place) = @_;
+    $self = $self->instance() unless ref $self;
+    my $visit = $self->{ VISIT } ||= [ ];
+    push(@$visit, $place);
+    return $place;
+}
+
+
+sub leave {
+    my ($self, $place) = @_;
+    $self = $self->instance() unless ref $self;
+    my $visit = $self->{ VISIT };
+    return $self->error('empty VISIT stack') unless @$visit;
+    pop(@$visit);
+}
+
+
+sub visiting {
+    my ($self, $place) = @_;
+    $self = $self->instance() unless ref $self;
+    my $visit = $self->{ VISIT };
+    return 0 unless $visit && @$visit;
+
+    foreach (reverse @$visit) {
+	return 1 if $_ eq $place;
+    }
+    return 0;
+}
+    
 
 sub AUTOLOAD {
     my $self = shift;

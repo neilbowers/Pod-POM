@@ -9,8 +9,17 @@
 #   Andy Wardley   <abw@kfs.org>
 #
 #------------------------------------------------------------------------
-# $Id: Changes,v 1.3 2002/02/06 16:45:13 abw Exp $
+# $Id: Changes,v 1.4 2002/02/25 10:59:11 abw Exp $
 #========================================================================
+
+#------------------------------------------------------------------------
+# Version 0.14  25th February 2002
+#------------------------------------------------------------------------
+
+* Added the visit(), leave() and visiting() methods to Pod::POM::View 
+  to allow visitors to track elements of the path that they've taken.
+  This allows one method to know if it has been called within the context
+  of another.  
 
 #------------------------------------------------------------------------
 # Version 0.13  6th February 2002

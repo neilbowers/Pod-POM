@@ -26,5 +26,6 @@ t/meta.t
 t/test.pod
 t/text.t
 t/textview.t
+t/view.t
 t/warn.t
 t/wrap.t

@@ -16,7 +16,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: POM.pm,v 1.2 2002/01/31 09:04:39 abw Exp $
+#   $Id: POM.pm,v 1.4 2002/02/25 11:02:02 abw Exp $
 #
 #========================================================================
 
@@ -32,7 +32,7 @@ use Pod::POM::View::Pod;
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 use base qw( Exporter );
 
-$VERSION = 0.13;
+$VERSION = 0.14;
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
@@ -1513,11 +1513,11 @@ Andy Wardley E<lt>abw@kfs.orgE<gt>
 
 =head1 VERSION
 
-This is version 0.12 of the Pod::POM module.
+This is version 0.14 of the Pod::POM module.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2000, 2001 Andy Wardley.  All Rights Reserved.
+Copyright (C) 2000-2002 Andy Wardley.  All Rights Reserved.
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
