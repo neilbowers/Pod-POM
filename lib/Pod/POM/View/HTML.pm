@@ -161,13 +161,18 @@ sub view_item {
     if (defined $title) {
         $title = $title->present($self) if ref $title;
         $title =~ s/$strip// if $strip;
-        $title = "<b>$title</b>\n" if $title;
+        if (length $title) {
+            my $anchor = $title;
+            $anchor =~ s/^\s*|\s*$//g; # strip leading and closing spaces
+            $anchor =~ s/\W/_/g;
+            $title = qq{<a name="item_$anchor"></a><b>$title</b>};
+        }
     }
 
     return '<li>'
-	 . $title
-	 . $item->content->present($self)
-         . "</li>\n";
+        . "$title\n"
+        . $item->content->present($self)
+        . "</li>\n";
 }
 
 
@@ -239,62 +244,148 @@ sub view_seq_entity {
 
 sub view_seq_link {
     my ($self, $link) = @_;
-    if ($link =~ s/^.*?\|//) {
-	return $link;
+
+    # view_seq_text has already taken care of L<http://example.com/>
+    if ($link =~ /^<a href=/ ) {
+        return $link;
+    }
+
+    # full-blown URL's are emitted as-is
+    if ($link =~ m{^\w+://}s ) {
+        return make_href($link);
+    }
+
+    $link =~ s/\n/ /g;   # undo line-wrapped tags
+
+    my $orig_link = $link;
+    my $linktext;
+    # strip the sub-title and the following '|' char
+    if ( $link =~ s/^ ([^|]+) \| //x ) {
+        $linktext = $1;
+    }
+
+    # make sure sections start with a /
+    $link =~ s|^"|/"|;
+
+    my $page;
+    my $section;
+    if ($link =~ m|^ (.*?) / "? (.*?) "? $|x) { # [name]/"section"
+        ($page, $section) = ($1, $2);
+    }
+    elsif ($link =~ /\s/) {  # this must be a section with missing quotes
+        ($page, $section) = ('', $link);
     }
     else {
-	return "the $link manpage";
+        ($page, $section) = ($link, '');
     }
+
+    # warning; show some text.
+    $linktext = $orig_link unless defined $linktext;
+
+    my $url = '';
+    if (defined $page && length $page) {
+        $url = $self->view_seq_link_transform_path($page);
+    }
+
+    # append the #section if exists
+    $url .= "#$section" if defined $url and
+        defined $section and length $section;
+
+    return make_href($url, $linktext);
 }
 
+
+# should be sub-classed if extra transformations are needed
+#
+# for example a sub-class may search for the given page and return a
+# relative path to it.
+#
+# META: where this functionality should be documented? This module
+# doesn't have docs section
+#
+sub view_seq_link_transform_path {
+    my($self, $page) = @_;
+
+    # right now the default transform doesn't check whether the link
+    # is not dead (i.e. whether there is a corresponding file.
+    # therefore we don't link L<>'s other than L<http://>
+    # subclass to change the default (and of course add validation)
+
+    # this is the minimal transformation that will be required if enabled
+    # $page = "$page.html";
+    # $page =~ s|::|/|g;
+    #print "page $page\n";
+    return undef;
+}
+
+
+sub make_href {
+    my($url, $title) = @_;
+
+    if (!defined $url) {
+        return defined $title ? "<i>$title</i>"  : '';
+    }
+
+    $title = $url unless defined $title;
+    #print "$url, $title\n";
+    return qq{<a href="$url">$title</a>};
+}
+
+
+
+
 # this code has been borrowed from Pod::Html
-my $urls = '(' . join ('|', 
-    qw{
-      http
-      telnet
-      mailto
-      news
-      gopher
-      file
-      wais
-      ftp
-    } ) . ')';	
+my $urls = '(' . join ('|',
+     qw{
+       http
+       telnet
+       mailto
+       news
+       gopher
+       file
+       wais
+       ftp
+     } ) . ')';	
 my $ltrs = '\w';
 my $gunk = '/#~:.?+=&%@!\-';
-my $punc = '.:?\-';
+my $punc = '.:!?\-;';
 my $any  = "${ltrs}${gunk}${punc}";
 
 sub view_seq_text {
-    my ($self, $text) = @_;
+     my ($self, $text) = @_;
 
-    unless ($HTML_PROTECT) {
+     unless ($HTML_PROTECT) {
 	for ($text) {
 	    s/&/&amp;/g;
 	    s/</&lt;/g;
 	    s/>/&gt;/g;
 	}
-    }
+     }
 
-    $text =~  s{
-        \b                          # start at word boundary
-        (                           # begin $1  {
-          $urls     :               # need resource and a colon
+     $text =~ s{
+        \b                           # start at word boundary
+         (                           # begin $1  {
+           $urls     :               # need resource and a colon
 	  (?!:)                     # Ignore File::, among others.
-          [$any] +?                 # followed by on or more
-                                    #  of any valid character, but
-                                    #  be conservative and take only
-                                    #  what you need to....
-        )                           # end   $1  }
-        (?=                         # look-ahead non-consumptive assertion
-                [$punc]*            # either 0 or more puntuation
-                [^$any]             #   followed by a non-url char
-            |                       # or else
-                $                   #   then end of the string
-        )
-      }{<a href="$1">$1</a>}igox;
+           [$any] +?                 # followed by one or more of any valid
+                                     #   character, but be conservative and
+                                     #   take only what you need to....
+         )                           # end   $1  }
+         (?=                         # look-ahead non-consumptive assertion
+                 [$punc]*            # either 0 or more punctuation followed
+                 (?:                 #   followed
+                     [^$any]         #   by a non-url char
+                     |               #   or
+                     $               #   end of the string
+                 )                   #
+             |                       # or else
+                 $                   #   then end of the string
+         )
+       }{<a href="$1">$1</a>}igox;
 
-    return $text;
+     return $text;
 }
+
 
 1;
 

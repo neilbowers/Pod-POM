@@ -93,31 +93,37 @@ The crazy item
 <h1>Test</h1>
 
 <ul>
-<li><p>The first item</p>
+<li>
+<p>The first item</p>
 </li>
-<li><p>The second item</p>
+<li>
+<p>The second item</p>
 </li>
 </ul>
 <ol>
-<li><p>The 1st item</p>
+<li>
+<p>The 1st item</p>
 </li>
-<li><p>The 2nd item</p>
+<li>
+<p>The 2nd item</p>
 </li>
 </ol>
 <ol>
-<li><p>The 1st item</p>
+<li>
+<p>The 1st item</p>
 </li>
-<li><p>The 2nd item</p>
+<li>
+<p>The 2nd item</p>
 </li>
 </ol>
 <ul>
-<li><b>foo</b>
+<li><a name="item_foo"></a><b>foo</b>
 <p>The foo item</p>
 </li>
-<li><b>bar</b>
+<li><a name="item_bar"></a><b>bar</b>
 <p>The bar item</p>
 </li>
-<li><b>crash bang wallop!</b>
+<li><a name="item_crash_bang_wallop_"></a><b>crash bang wallop!</b>
 <p>The crazy item</p>
 </li>
 </ul>

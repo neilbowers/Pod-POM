@@ -77,8 +77,8 @@ INSTALLATION
 
     Installation is as per usual:
 
-	$ tar zxf Pod-POM-0.14.tar.gz
-        $ cd Pod-POM-0.14
+	$ tar zxf Pod-POM-0.15.tar.gz
+        $ cd Pod-POM-0.15
         $ perl Makefile.PL
 	$ make
 	$ make test
@@ -88,7 +88,7 @@ AUTHOR
     Andy Wardley <abw@kfs.org>
     
 VERSION
-    This is version 0.14 of the Pod::POM module.
+    This is version 0.15 of the Pod::POM module.
     
 COPYRIGHT
     Copyright (C) 2000-2002 Andy Wardley.  All Rights Reserved.

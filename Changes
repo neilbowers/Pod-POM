@@ -13,6 +13,27 @@
 #========================================================================
 
 #------------------------------------------------------------------------
+# Version 0.15  8th March 2002
+#------------------------------------------------------------------------
+
+* Applied a patch from Stas Bekman to re-implement view_seq_link() in 
+  Pod/POM/View/HTML.pm
+  
+  - don't add "the foo manpage" automatically. 
+  - implement a big part of the L<> according to the spec, parts
+    borrowed from Pod::HTML
+  - the implementation includes an optional callback which can be
+    sub-classed to provide transformations of the 'page' part of the L<>
+    tag. For example if the page is located elsewhere.
+
+* Applied another patch from Stas to fix view_seq_text()
+
+  - ! and ; are also punctuation chars
+  - fix comment typos
+  - fix incorrectly parsed url followed by punctuation at the end of string:
+
+
+#------------------------------------------------------------------------
 # Version 0.14  25th February 2002
 #------------------------------------------------------------------------
 

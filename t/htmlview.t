@@ -29,7 +29,26 @@ for ($result, $expect) {
     s/\s*$//;
 }
 
-match($result, $expect);
+#match($result, $expect);
+use constant HAS_TEXT_DIFF => eval { require Text::Diff};
+if (HAS_TEXT_DIFF) {
+    diff($expect, $result, 2);
+} else {
+    match($result, $expect);
+}
+
+sub diff {
+    my($expect, $result, $tnum) = @_;
+    my $diff = Text::Diff::diff(\$expect, \$result, {STYLE=> "Unified"});
+    if ($diff) {
+        print "not ok $tnum\n";
+        print $diff;
+    }
+    else {
+        print "ok $tnum\n";
+    }
+}
+
 #print $pom;
 
 __DATA__
@@ -172,9 +191,9 @@ This is an email link: mailto:foo@bar.com
 
 =head1 SEE ALSO
 
-See also L<pod2|Test Page 2>, L<Your::Module>, 
-L<Their::Module> and the other interesting file 
-F</usr/local/my/module/rocks> as well.
+See also L<Test Page 2|pod2>, the L<Your::Module> and L<Their::Module>
+manpages and the other interesting file F</usr/local/my/module/rocks>
+as well.
 
 =cut
 
@@ -208,48 +227,53 @@ other <b>cool</b> stuff</i></p>
 <h2>new()</h2>
 <p>Constructor method.  Accepts the following config options:</p>
 <ul>
-<li><b>foo</b>
+<li><a name="item_foo"></a><b>foo</b>
 <p>The foo item.</p>
 </li>
-<li><b>bar</b>
+<li><a name="item_bar"></a><b>bar</b>
 <p>The bar item.</p>
 <ul>
 <p>This is a list within a list </p>
-<li><p>The wiz item.</p>
+<li>
+<p>The wiz item.</p>
 </li>
-<li><p>The waz item.</p>
+<li>
+<p>The waz item.</p>
 </li>
 </ul>
 </li>
-<li><b>baz</b>
+<li><a name="item_baz"></a><b>baz</b>
 <p>The baz item.</p>
 </li>
 </ul>
 <p>Title on the same line as the =item + * bullets</p>
 <ul>
-<li><b><code>Black</code> Cat</b>
+<li><a name="item__code_Black__code__Cat"></a><b><code>Black</code> Cat</b>
 </li>
-<li><b>Sat <i>on</i>&nbsp;the</b>
+<li><a name="item_Sat__i_on__i__nbsp_the"></a><b>Sat <i>on</i>&nbsp;the</b>
 </li>
-<li><b>Mat&lt;!&gt;</b>
+<li><a name="item_Mat_lt___gt_"></a><b>Mat&lt;!&gt;</b>
 </li>
 </ul>
 <p>Title on the same line as the =item + numerical bullets</p>
 <ol>
-<li><b>Cat</b>
+<li><a name="item_Cat"></a><b>Cat</b>
 </li>
-<li><b>Sat</b>
+<li><a name="item_Sat"></a><b>Sat</b>
 </li>
-<li><b>Mat</b>
+<li><a name="item_Mat"></a><b>Mat</b>
 </li>
 </ol>
 <p>No bullets, no title</p>
 <ul>
-<li><p>Cat</p>
+<li>
+<p>Cat</p>
 </li>
-<li><p>Sat</p>
+<li>
+<p>Sat</p>
 </li>
-<li><p>Mat</p>
+<li>
+<p>Mat</p>
 </li>
 </ul>
 <h2>old()</h2>
@@ -273,8 +297,8 @@ HTML
 <p>This is an email link: <a href="mailto:foo@bar.com">mailto:foo@bar.com</a></p>
 <h1>SEE ALSO</h1>
 
-<p>See also Test Page 2, the Your::Module manpage, 
-the Their::Module manpage and the other interesting file 
-/usr/local/my/module/rocks as well.</p>
+<p>See also <i>Test Page 2</i>, the <i>Your::Module</i> and <i>Their::Module</i>
+manpages and the other interesting file /usr/local/my/module/rocks
+as well.</p>
 </body></html>
 

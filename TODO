@@ -4,3 +4,7 @@
 
 * more views for different styles, formats, etc.
 
+* According to the new podspec: C<< o->foo >> is the same as
+  C<o-E<gt>foo>. adjust Pod::POM to handle this kind of markup
+ 
+
