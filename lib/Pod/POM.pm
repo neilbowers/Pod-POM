@@ -32,7 +32,7 @@ use Pod::POM::View::Pod;
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 use base qw( Exporter );
 
-$VERSION = 0.11;
+$VERSION = 0.12;
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
@@ -461,8 +461,10 @@ Pod::POM - POD Object Model
 
     sub view_head1 {
 	my ($self, $item) = @_;
-	return "<h2>", $item->title->present($self), "</h2>\n\n";
-	$item->content->present($self);
+	return '<h1>', 
+	       $item->title->present($self), 
+               "</h1>\n",
+	       $item->content->present($self);
     }
     
     package main;
@@ -1269,7 +1271,8 @@ implement a method which corresponds to the node name prefixed by 'view_'
 
 The C<pod> node is used to represent the root node of the Pod Object Model.
 
-Content elements: head1, head2, over, begin, for, verbatim, text, code.
+Content elements: head1, head2, head3, head4, over, begin, for,
+verbatim, text, code.
 
 =item head1
 
@@ -1454,16 +1457,17 @@ leave it to determine the output format from its own name.
     $ pom2text My/Module.pm > README
     $ pom2html My/Module.pm > ~/public_html/My/Module.html
 
-The distribution also contains a trivial script, C<pomcheck>, which
-checks a Pod document for well-formedness by simply parsing it into a
-Pod Object Model with warnings enabled.  Warnings are printed to STDERR.
+The distribution also contains a trivial script, C<podlint>
+(previously C<pomcheck>), which checks a Pod document for
+well-formedness by simply parsing it into a Pod Object Model with
+warnings enabled.  Warnings are printed to STDERR.
 
-    $ pomcheck My/Module.pm
+    $ podlint My/Module.pm
 
 The C<-f> option can be set to have the script attempt to fix any problems
 it encounters.  The regenerated Pod output is printed to STDOUT.
 
-    $ pomcheck -f My/Module.pm > newfile
+    $ podlint -f My/Module.pm > newfile
 
 =head1 METADATA
 
@@ -1502,14 +1506,14 @@ or
 Please note that this is an experimental feature which is not supported by
 other POD processors and is therefore likely to be most incompatible.  Use
 carefully.
-    
+
 =head1 AUTHOR
 
 Andy Wardley E<lt>abw@kfs.orgE<gt>
 
 =head1 VERSION
 
-This is version 0.3 of the Pod::POM module.
+This is version 0.12 of the Pod::POM module.
 
 =head1 COPYRIGHT
 

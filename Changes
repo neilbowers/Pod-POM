@@ -13,6 +13,33 @@
 #========================================================================
 
 #------------------------------------------------------------------------
+# Version 0.12  3rd January 2002
+#------------------------------------------------------------------------
+
+* Applied a patch from Stas Bekman which:
+
+  - fixes the over/item functionality (quite a few very missing), see 
+    the tests
+
+  - fixes a bug revealed with "" overload
+
+  - changes HTML version to be <code>foo</code>, not '<code>foo</code>'
+
+  - adds the URL hyperlinking code, borrowed from bleadperl's Pod::Html.
+
+* Fixed a typo in the SYNOPSIS and removed some dead spaces.  Thanks to 
+  Ron Savage for reporting the problems.  
+
+* Added Ron's fancy-pom2.pl script as bin/custom-pom2
+
+* Renamed pomcheck to podlint because it is a much catchier name :-)
+
+* Added some docs to bin/pom2 and bin/podlint
+
+* Several other minor documentation fixes and improvements.
+ 
+
+#------------------------------------------------------------------------
 # Version 0.11  2nd December 2001
 #------------------------------------------------------------------------
 

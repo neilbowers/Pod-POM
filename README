@@ -44,8 +44,10 @@ SYNOPSIS
     
 	sub view_head1 {
 	    my ($self, $item) = @_;
-	    return "<h2>", $item->title->present($self), "</h2>\n\n";
-	    $item->content->present($self);
+	    return "<h2>"
+                 . $item->title->present($self)
+                 . "</h2>\n\n"
+	         . $item->content->present($self);
 	}
 	
 	package main;
@@ -75,8 +77,8 @@ INSTALLATION
 
     Installation is as per usual:
 
-	$ tar zxf Pod-POM-0.03.tar.gz
-        $ cd Pod-POM-0.03
+	$ tar zxf Pod-POM-0.12.tar.gz
+        $ cd Pod-POM-0.12
         $ perl Makefile.PL
 	$ make
 	$ make test
@@ -86,10 +88,10 @@ AUTHOR
     Andy Wardley <abw@kfs.org>
     
 VERSION
-    This is version 0.03 of the Pod::POM module.
+    This is version 0.12 of the Pod::POM module.
     
 COPYRIGHT
-    Copyright (C) 2000, 2001 Andy Wardley.  All Rights Reserved.
+    Copyright (C) 2000-2002 Andy Wardley.  All Rights Reserved.
     
     This module is free software; you can redistribute it and/or
     modify it under the same terms as Perl itself.

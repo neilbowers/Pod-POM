@@ -121,17 +121,17 @@ sub view_over {
 
     my $first_title = $items->[0]->title();
 
-    if ($first_title =~ /^\s*\*\s*$/) {
+    if ($first_title =~ /^\s*\*\s*/) {
 	# '=item *' => <ul>
 	$start = "<ul>\n";
 	$end   = "</ul>\n";
 	$strip = qr/^\s*\*\s*/;
     }
-    elsif ($first_title =~ /^\s*\d+\.?/) {
-	# '=item 1.' => <ol>
+    elsif ($first_title =~ /^\s*\d+\.?\s*/) {
+	# '=item 1.' or '=item 1 ' => <ol>
 	$start = "<ol>\n";
 	$end   = "</ol>\n";
-	$strip = qr/^\d+\.?/;
+	$strip = qr/^\s*\d+\.?\s*/;
     }
     else {
 	$start = "<ul>\n";
@@ -156,10 +156,12 @@ sub view_item {
     my $over  = ref $self ? $self->{ OVER } : \@OVER;
     my $title = $item->title();
     my $strip = $over->[-1];
-    $title =~ s/$strip// if defined $title && $strip;
 
-    $title = '<b>' . $title->present($self) . "</b>\n"
-	if $title;
+    if (defined $title) {
+        $title = $title->present($self) if ref $title;
+        $title =~ s/$strip// if $strip;
+        $title = "<b>$title</b>\n" if $title;
+    }
 
     return '<li>'
 	 . $title
@@ -214,7 +216,7 @@ sub view_seq_italic {
 
 sub view_seq_code {
     my ($self, $text) = @_;
-    return "'<code>$text</code>'";
+    return "<code>$text</code>";
 }
 
 
@@ -240,8 +242,46 @@ sub view_seq_link {
 	return "the $link manpage";
     }
 }
-	
-    
+
+# this code has been borrowed from Pod::Html
+my $urls = '(' . join ('|', 
+    qw{
+      http
+      telnet
+      mailto
+      news
+      gopher
+      file
+      wais
+      ftp
+    } ) . ')';	
+my $ltrs = '\w';
+my $gunk = '/#~:.?+=&%@!\-';
+my $punc = '.:?\-';
+my $any  = "${ltrs}${gunk}${punc}";
+
+sub view_seq_text {
+    my ($self, $text) = @_;
+    $text =~  s{
+        \b                          # start at word boundary
+        (                           # begin $1  {
+          $urls     :               # need resource and a colon
+	  (?!:)                     # Ignore File::, among others.
+          [$any] +?                 # followed by on or more
+                                    #  of any valid character, but
+                                    #  be conservative and take only
+                                    #  what you need to....
+        )                           # end   $1  }
+        (?=                         # look-ahead non-consumptive assertion
+                [$punc]*            # either 0 or more puntuation
+                [^$any]             #   followed by a non-url char
+            |                       # or else
+                $                   #   then end of the string
+        )
+      }{<a href="$1">$1</a>}igox;
+
+    return $text;
+}
 
 1;
 

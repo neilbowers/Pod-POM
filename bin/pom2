@@ -1,4 +1,13 @@
 #!/usr/bin/perl -w
+#
+# This program implements a simple translator to convert POD
+# to HTML, Text, or back to POD again (e.g. for normalising a 
+# document).  You can easily extend it to work with any other
+# view modules you create which convert POD to different formats
+# or in different styles.
+#
+# Written by Andy Wardley <abw@kfs.org>.   This is free software.
+#
 
 use Pod::POM;
 use File::Basename;
@@ -49,7 +58,7 @@ sub usage {
     my $msg = shift || '';
 
     if ($program =~ /^$PROGRAM$/) {
-	$program = "pod2 format";
+	$program = "pom2 format";
     }
     
     return <<EOF;
@@ -57,3 +66,42 @@ ${msg}
 usage: $program file
 EOF
 }
+
+__END__
+
+=head1 NAME
+
+pom2 - convert POD to Text, HTML, etc., with Pod::POM
+
+=head1 SYNOPSIS
+
+    pom2 text MyFile.pm > MyFile.txt
+    pom2 html MyFile.pm > MyFile.html
+    pom2 pod  MyFile.pm > Myfile.pod
+
+=head1 DESCRIPTION
+
+This script uses Pod::POM to convert a Pod document into text,
+HTML, back into Pod (e.g. to normalise a document to fix any 
+markup errors), or any other format for which you have a view
+module.
+
+=head1 AUTHOR
+
+Andy Wardley E<lt>abw@kfs.orgE<gt>
+
+=head1 VERSION
+
+This is version 0.2 of pom2.
+
+=head1 COPYRIGHT
+
+Copyright (C) 2000, 2001 Andy Wardley.  All Rights Reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+For further information please see L<Pod::POM>.
+

@@ -97,6 +97,48 @@ The baz item.
 
 =back
 
+Title on the same line as the =item + * bullets
+
+=over
+
+=item * C<Black> Cat
+
+=item * Sat S<I<on> the>
+
+=item * MatE<lt>!E<gt>
+
+=back
+
+Title on the same line as the =item + numerical bullets
+
+=over
+
+=item 1 Cat
+
+=item 2 Sat
+
+=item 3 Mat
+
+=back
+
+No bullets, no title
+
+=over
+
+=item
+
+Cat
+
+=item
+
+Sat
+
+=item
+
+Mat
+
+=back
+
 =head2 old()
 
 Destructor method
@@ -119,6 +161,14 @@ HTML
 some text
 
 =end
+
+=head1 TESTING URLs hyperlinking
+
+This is an href link1: http://example.com
+
+This is an href link2: http://example.com/foo/bar.html
+
+This is an email link: mailto:foo@bar.com
 
 =head1 SEE ALSO
 
@@ -147,8 +197,8 @@ F</usr/local/my/module/rocks> as well.
 
 <p>This is some more regular text.</p>
 <p>Here is some <b>bold</b> text, some <i>italic</i> and something that looks 
-like an &lt;html&gt; tag.  This is some '<code>$code($arg1)</code>'.</p>
-<p>This '<code>text contains embedded <b>bold</b> and <i>italic</i> tags</code>'.  These can 
+like an &lt;html&gt; tag.  This is some <code>$code($arg1)</code>.</p>
+<p>This <code>text contains embedded <b>bold</b> and <i>italic</i> tags</code>.  These can 
 be nested, allowing <b>bold and <i>bold &amp; italic</i> text</b>.  The module also
 supports the extended <b>syntax</b> and permits <i>nested tags &amp;
 other <b>cool</b> stuff</i></p>
@@ -175,6 +225,33 @@ other <b>cool</b> stuff</i></p>
 <p>The baz item.</p>
 </li>
 </ul>
+<p>Title on the same line as the =item + * bullets</p>
+<ul>
+<li><b><code>Black</code> Cat</b>
+</li>
+<li><b>Sat <i>on</i>&nbsp;the</b>
+</li>
+<li><b>Mat&lt;!&gt;</b>
+</li>
+</ul>
+<p>Title on the same line as the =item + numerical bullets</p>
+<ol>
+<li><b>Cat</b>
+</li>
+<li><b>Sat</b>
+</li>
+<li><b>Mat</b>
+</li>
+</ol>
+<p>No bullets, no title</p>
+<ul>
+<li><p>Cat</p>
+</li>
+<li><p>Sat</p>
+</li>
+<li><p>Mat</p>
+</li>
+</ul>
 <h2>old()</h2>
 <p>Destructor method</p>
 <h1>TESTING FOR AND BEGIN</h1>
@@ -189,6 +266,11 @@ blah blah
 HTML
 </more></p>
 <p>some text</p>
+<h1>TESTING URLs hyperlinking</h1>
+
+<p>This is an href link1: <a href="http://example.com">http://example.com</a></p>
+<p>This is an href link2: <a href="http://example.com/foo/bar.html">http://example.com/foo/bar.html</a></p>
+<p>This is an email link: <a href="mailto:foo@bar.com">mailto:foo@bar.com</a></p>
 <h1>SEE ALSO</h1>
 
 <p>See also Test Page 2, the Your::Module manpage, 

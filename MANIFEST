@@ -4,7 +4,8 @@ Makefile.PL
 README
 TODO
 bin/pom2
-bin/pomcheck
+bin/podlint
+bin/custom-pom2
 lib/Pod/POM.pm
 lib/Pod/POM/Constants.pm
 lib/Pod/POM/Node.pm
