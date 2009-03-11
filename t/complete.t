@@ -18,7 +18,7 @@ my $pom = $parser->parse_text($text);
 assert( defined $pom );
 
 # something of a crap test... 
-match( length $pom, 1882 );
+match( length $pom, 1881 );
 
 __DATA__
 =head1 NAME

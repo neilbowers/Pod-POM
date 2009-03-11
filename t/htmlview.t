@@ -233,7 +233,7 @@ other <b>cool</b> stuff</i></p>
 <li><a name="item_bar"></a><b>bar</b>
 <p>The bar item.</p>
 <ul>
-<p>This is a list within a list </p>
+<p>This is a list within a list</p>
 <li>
 <p>The wiz item.</p>
 </li>
@@ -286,10 +286,10 @@ blah blah
 </p>
 
 <p>intermediate text</p>
-<p><more>
+<more>
 HTML
-</more></p>
-<p>some text</p>
+</more>
+some text
 <h1>TESTING URLs hyperlinking</h1>
 
 <p>This is an href link1: <a href="http://example.com">http://example.com</a></p>

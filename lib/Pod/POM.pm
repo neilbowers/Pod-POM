@@ -9,8 +9,10 @@
 # AUTHOR
 #   Andy Wardley   <abw@wardley.org>
 #
+#   Andrew Ford    <A.Ford@ford-mason.co.uk> (co-maintainer as of 03/2009)
+#
 # COPYRIGHT
-#   Copyright (C) 2000-2003 Andy Wardley.  All Rights Reserved.
+#   Copyright (C) 2000-2009 Andy Wardley.  All Rights Reserved.
 #
 #   This module is free software; you can redistribute it and/or
 #   modify it under the same terms as Perl itself.
@@ -32,7 +34,7 @@ use Pod::POM::View::Pod;
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 use base qw( Exporter );
 
-$VERSION = 0.17;
+$VERSION = 0.18;
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
@@ -172,8 +174,9 @@ sub parse_text {
     $$line  = 1;
     $inpod  = 0;
 
-    
-    while ($text =~ /(?:(.*?)(\n{2,}))|(.+$)/sg) {
+# patch from JJ    
+#    while ($text =~ /(?:(.*?)(\n{2,}))|(.+$)/sg) {
+    while ($text =~ /(?:(.*?)((?:\s*\n){2,}))|(.+$)/sg) {
 	($para, $gap) = defined $1 ? ($1, $2) : ($3, '');
 
 	if ($para =~ s/^==?(\w+)\s*//) {
@@ -1511,13 +1514,15 @@ carefully.
 
 Andy Wardley E<lt>abw@kfs.orgE<gt>
 
+Andrew Ford E<lt>A.Ford@ford-mason.co.ukE<gt> (co-maintainer as of 03/2009)
+
 =head1 VERSION
 
-This is version 0.15 of the Pod::POM module.
+This is version 0.18 of the Pod::POM module.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2000-2002 Andy Wardley.  All Rights Reserved.
+Copyright (C) 2000-2009 Andy Wardley.  All Rights Reserved.
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

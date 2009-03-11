@@ -20,5 +20,5 @@ $Pod::POM::DEFAULT_VIEW = 'Pod::POM::View::Text';
 #print $pom;
 
 # yet another crap test
-match( length $pom, 1731 );
+match( length $pom, 1730 );
 

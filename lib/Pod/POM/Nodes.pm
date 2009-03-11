@@ -204,7 +204,7 @@ sub new {
     my $text  = shift;
     $text = $pom->parse_sequence($text)
         || return $class->error($pom->error())
-            if length $text;
+            if length $text && ! $pom->{in_begin};
     $class->SUPER::new($pom, $text);
 }
 

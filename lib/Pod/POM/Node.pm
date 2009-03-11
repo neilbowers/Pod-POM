@@ -146,12 +146,14 @@ sub add {
 	    unless defined $node;
 	push(@{ $self->{ $type   } }, $node);
 	push(@{ $self->{ content } }, $node);
+    $pom->{in_begin} = 1 if $nodeclass eq 'Pod::POM::Node::Begin';
 	return $node;
     }
 
     # REDUCE: expect indicates the token that should terminate this node
     if (defined $expect && ($type eq $expect)) {
 	DEBUG("$name terminated by expected $type\n");
+    $pom->{in_begin} = 0 if $name eq 'begin';
 	return REDUCE;
     }
 

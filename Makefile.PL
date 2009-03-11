@@ -4,6 +4,9 @@ my %opts = (
     'NAME'	   => 'Pod::POM',
     'VERSION_FROM' => 'lib/Pod/POM.pm',
     'EXE_FILES'    => [ 'bin/pom2', 'bin/podlint' ],
+    'PREREQ_PM'    => { 
+        'Text::Wrap' => 0,
+    },
     'dist'         => {
 	'COMPRESS' => 'gzip',
 	'SUFFIX'   => 'gz',

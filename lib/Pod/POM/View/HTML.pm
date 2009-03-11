@@ -196,7 +196,7 @@ sub view_begin {
 
 sub view_textblock {
     my ($self, $text) = @_;
-    return "<p>$text</p>\n";
+    return $HTML_PROTECT ? "$text\n" : "<p>$text</p>\n";
 }
 
 

@@ -13,6 +13,25 @@
 #========================================================================
 
 #------------------------------------------------------------------------
+# Version 0.18  2009-03-11
+#------------------------------------------------------------------------
+
+* Add patches from RT
+
+  * BOOK's ticket #24266: Proposed correction for bugs #1949 and #5759
+    (As described in tickets #1949 and #5759, the content =begin/=end blocks
+     should be treated as data text (no sequence parsing, etc).)
+
+  * JJ's ticket #16764: Problem handling paragraph separators - incompatibility with perlpodspec
+    (Pod::POM 0.17 does not accept blank lines containing whitespace as
+    paragraph separators, it only accepts blank lines containing no
+    characters at all. According to perlpodspec, blank lines containing
+    whitespace should be taken as paragraph separators.
+
+* Modified pom2 to search for viewer modules other than Pod, Text and
+  HTML in @INC, and to pass any options to the constructor method.
+
+#------------------------------------------------------------------------
 # Version 0.17  
 #------------------------------------------------------------------------
 

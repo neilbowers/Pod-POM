@@ -1,5 +1,7 @@
 * document Pod::POM::View and friends
 
+* add more thorough testing
+
 * fix link generation via L<...>
 
 * more views for different styles, formats, etc.
