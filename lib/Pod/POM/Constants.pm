@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Constants.pm 14 2009-03-13 08:19:40Z ford $
+#   $Id: Constants.pm 32 2009-03-17 21:08:25Z ford $
 #
 #========================================================================
 
@@ -52,3 +52,24 @@ use constant REJECT => 2;
 
 
 1;
+
+=head1 NAME
+
+Pod::POM::Constants
+
+=head1 DESCRIPTION
+
+Constants used by Pod::POM.
+
+=head1 AUTHOR
+
+Andy Wardley E<LT>abw@kfs.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2000, 2001 Andy Wardley.  All Rights Reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+=cut

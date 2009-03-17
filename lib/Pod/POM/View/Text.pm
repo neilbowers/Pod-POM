@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Text.pm 29 2009-03-17 07:46:38Z ford $
+#   $Id: Text.pm 34 2009-03-17 21:11:05Z ford $
 #
 #========================================================================
 
@@ -75,6 +75,7 @@ sub view_head1 {
     my ($self, $head1) = @_;
     my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
     my $pad = ' ' x $$indent;
+    local $Text::Wrap::unexpand = 0;
     my $title = wrap($pad, $pad, 
 		     $head1->title->present($self));
     
@@ -90,6 +91,7 @@ sub view_head2 {
     my ($self, $head2) = @_;
     my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
     my $pad = ' ' x $$indent;
+    local $Text::Wrap::unexpand = 0;
     my $title = wrap($pad, $pad, 
 		     $head2->title->present($self));
 
@@ -105,6 +107,7 @@ sub view_head3 {
     my ($self, $head3) = @_;
     my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
     my $pad = ' ' x $$indent;
+    local $Text::Wrap::unexpand = 0;
     my $title = wrap($pad, $pad, 
 		     $head3->title->present($self));
 
@@ -120,6 +123,7 @@ sub view_head4 {
     my ($self, $head4) = @_;
     my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
     my $pad = ' ' x $$indent;
+    local $Text::Wrap::unexpand = 0;
     my $title = wrap($pad, $pad, 
 		     $head4->title->present($self));
 
@@ -138,15 +142,28 @@ sub view_head4 {
 # within the block.
 #------------------------------------------------------------------------
 
-#sub view_over {
-#    my ($self, $over) = @_;
-#
-#}
+sub view_over {
+    my ($self, $over) = @_;
+
+    if (@{$over->item}) {
+	return $over->content->present($self);
+    }
+    else {
+	my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+	my $pad = ' ' x $$indent;
+	$$indent += 4;
+	my $content = $over->content->present($self);
+	$$indent -= 4;
+    
+	return $content;
+    }
+}
 
 sub view_item {
     my ($self, $item) = @_;
     my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
     my $pad = ' ' x $$indent;
+    local $Text::Wrap::unexpand = 0;
     my $title = wrap($pad . '* ', $pad . '  ', 
 		     $item->title->present($self));
 
@@ -180,6 +197,7 @@ sub view_textblock {
 
     $$indent ||= 0;
     my $pad = ' ' x $$indent;
+    local $Text::Wrap::unexpand = 0;
     return wrap($pad, $pad, $text) . "\n\n";
 }
 
@@ -247,6 +265,75 @@ sub view_seq_link {
 
 1;
 
+=head1 NAME
 
+Pod::POM::View::Text
 
+=head1 DESCRIPTION
 
+Text view of a Pod Object Model.
+
+=head1 METHODS
+
+=over 4
+
+=item C<view($self, $type, $item)>
+
+=item C<view_pod($self, $pod)>
+
+=item C<view_head1($self, $head1)>
+
+=item C<view_head2($self, $head2)>
+
+=item C<view_head3($self, $head3)>
+
+=item C<view_head4($self, $head4)>
+
+=item C<view_over($self, $over)>
+
+=item C<view_item($self, $item)>
+
+=item C<view_for($self, $for)>
+
+=item C<view_begin($self, $begin)>
+
+=item C<view_textblock($self, $textblock)>
+
+=item C<view_verbatim($self, $verbatim)>
+
+=item C<view_meta($self, $meta)>
+
+=item C<view_seq_bold($self, $text)>
+
+Returns the text of a C<BE<lt>E<gt>> sequence in 'bold' (i.e. surrounded by asterisks, like *this*).
+
+=item C<view_seq_italic($self, $text)>
+
+Returns the text of a C<IE<lt>E<gt>> sequence in 'italics' (i.e. surrounded by underscores, like _this_).
+
+=item C<view_seq_code($self, $text)>
+
+=item C<view_seq_file($self, $text)>
+
+=item C<view_seq_entity($self, $text)>
+
+=item C<view_seq_index($self, $text)>
+
+Returns an empty string.  Index sequences are suppressed in text view.
+
+=item C<view_seq_link($self, $text)>
+
+=back
+
+=head1 AUTHOR
+
+Andy Wardley E<lt>abw@kfs.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2000 Andy Wardley.  All Rights Reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+=cut

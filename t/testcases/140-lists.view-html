@@ -17,5 +17,16 @@
 <p>item 3</p>
 </li>
 </ul>
+<p>A definition list:</p>
+<dl>
+<dt><a name="item_Term_1"></a><b>Term 1</b></dt>
+<dd>
+<p>description 1</p>
+</dd>
+<dt><a name="item_Term_2"></a><b>Term 2</b></dt>
+<dd>
+<p>description 2</p>
+</dd>
+</dl>
 </body>
 </html>

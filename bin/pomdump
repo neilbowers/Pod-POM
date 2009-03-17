@@ -39,7 +39,7 @@ pomdump - check POD for correctness using Pod::POM
 
 =head1 SYNOPSIS
 
-    podlint MyFile.pm
+    pomdump MyFile.pm
 
 =head1 DESCRIPTION
 

@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: HTML.pm 27 2009-03-17 07:13:14Z ford $
+#   $Id: HTML.pm 33 2009-03-17 21:10:42Z ford $
 #
 #========================================================================
 
@@ -116,38 +116,44 @@ sub view_head4 {
 sub view_over {
     my ($self, $over) = @_;
     my ($start, $end, $strip);
-
     my $items = $over->item();
-    return "" unless @$items;
 
-    my $first_title = $items->[0]->title();
+    if (@$items) {
 
-    if ($first_title =~ /^\s*\*\s*/) {
-	# '=item *' => <ul>
-	$start = "<ul>\n";
-	$end   = "</ul>\n";
-	$strip = qr/^\s*\*\s*/;
-    }
-    elsif ($first_title =~ /^\s*\d+\.?\s*/) {
-	# '=item 1.' or '=item 1 ' => <ol>
-	$start = "<ol>\n";
-	$end   = "</ol>\n";
-	$strip = qr/^\s*\d+\.?\s*/;
+	my $first_title = $items->[0]->title();
+
+	if ($first_title =~ /^\s*\*\s*/) {
+	    # '=item *' => <ul>
+	    $start = "<ul>\n";
+	    $end   = "</ul>\n";
+	    $strip = qr/^\s*\*\s*/;
+	}
+	elsif ($first_title =~ /^\s*\d+\.?\s*/) {
+	    # '=item 1.' or '=item 1 ' => <ol>
+	    $start = "<ol>\n";
+	    $end   = "</ol>\n";
+	    $strip = qr/^\s*\d+\.?\s*/;
+	}
+	else {
+	    $start = "<ul>\n";
+	    $end   = "</ul>\n";
+	    $strip = '';
+	}
+
+	my $overstack = ref $self ? $self->{ OVER } : \@OVER;
+	push(@$overstack, $strip);
+	my $content = $over->content->present($self);
+	pop(@$overstack);
+    
+	return $start
+	    . $content
+	    . $end;
     }
     else {
-	$start = "<ul>\n";
-	$end   = "</ul>\n";
-	$strip = '';
+	return "<blockquote>\n"
+	    . $over->content->present($self)
+	    . "</blockquote>\n";
     }
-
-    my $overstack = ref $self ? $self->{ OVER } : \@OVER;
-    push(@$overstack, $strip);
-    my $content = $over->content->present($self);
-    pop(@$overstack);
-    
-    return $start
-	 . $content
-         . $end;
 }
 
 
@@ -398,6 +404,77 @@ sub view_seq_text {
 
 1;
 
+=head1 NAME
 
+Pod::POM::View::HTML
 
+=head1 DESCRIPTION
 
+HTML view of a Pod Object Model.
+
+=head1 METHODS
+
+=over 4
+
+=item C<view($self, $type, $item)>
+
+=item C<view_pod($self, $pod)>
+
+=item C<view_head1($self, $head1)>
+
+=item C<view_head2($self, $head2)>
+
+=item C<view_head3($self, $head3)>
+
+=item C<view_head4($self, $head4)>
+
+=item C<view_over($self, $over)>
+
+=item C<view_item($self, $item)>
+
+=item C<view_for($self, $for)>
+
+=item C<view_begin($self, $begin)>
+
+=item C<view_textblock($self, $textblock)>
+
+=item C<view_verbatim($self, $verbatim)>
+
+=item C<view_meta($self, $meta)>
+
+=item C<view_seq_bold($self, $text)>
+
+Returns the text of a C<BE<lt>E<gt>> sequence enclosed in a C<E<lt>b<E<gt>> element.
+
+=item C<view_seq_italic($self, $text)>
+
+Returns the text of a C<IE<lt>E<gt>> sequence enclosed in a C<E<lt>i<E<gt>> element.
+
+=item C<view_seq_code($self, $text)>
+
+Returns the text of a C<CE<lt>E<gt>> sequence enclosed in a C<E<lt>code<E<gt>> element.
+
+=item C<view_seq_file($self, $text)>
+
+=item C<view_seq_entity($self, $text)>
+
+=item C<view_seq_index($self, $text)>
+
+Returns an empty string.  Index sequences are suppressed in HTML view.
+
+=item C<view_seq_link($self, $text)>
+
+=back
+
+=head1 AUTHOR
+
+Andy Wardley E<lt>abw@kfs.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2000 Andy Wardley.  All Rights Reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+=cut

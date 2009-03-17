@@ -16,7 +16,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: View.pm 14 2009-03-13 08:19:40Z ford $
+#   $Id: View.pm 32 2009-03-17 21:08:25Z ford $
 #
 #========================================================================
 
@@ -124,6 +124,43 @@ sub AUTOLOAD {
 
 1;
 
+=head1 NAME
 
+Pod::POM::View
 
+=head1 DESCRIPTION
 
+Visitor class for creating a view of all or part of a Pod Object Model.
+
+=head1 METHODS
+
+=over 4
+
+=item C<new>
+
+=item C<print>
+
+=item C<view>
+
+=item C<instance>
+
+=item C<visit>
+
+=item C<leave>
+
+=item C<visiting>
+
+=back
+
+=head1 AUTHOR
+
+Andy Wardley E<lt>abw@kfs.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2000, 2001 Andy Wardley.  All Rights Reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+=cut

@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Pod-POM
-version:            0.19
+version:            0.20
 abstract:           POD Object Model
 author:
     - Andy Wardley <abw@kfs.org>

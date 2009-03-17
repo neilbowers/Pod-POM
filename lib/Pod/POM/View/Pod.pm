@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Pod.pm 14 2009-03-13 08:19:40Z ford $
+#   $Id: Pod.pm 35 2009-03-17 21:11:53Z ford $
 #
 #========================================================================
 
@@ -50,7 +50,12 @@ sub view {
 	    return "$item";
 	}
 	if ($type = $MARKUP->{ $type }) {
-	    return "$type<$item>";
+	    if ($item =~ /[<>]/) {
+		return "$type<< $item >>";
+	    }
+	    else {
+		return "$type<$item>";		
+	    }
 	}
     }
     elsif (ref $item eq 'HASH') {
@@ -181,6 +186,55 @@ sub view_meta {
 
 1;
 
+=head1 NAME
 
+Pod::POM::View::Pod
 
+=head1 DESCRIPTION
 
+Pod view of a Pod Object Model.
+
+=head1 METHODS
+
+=over 4
+
+=item C<view($self, $type, $item)>
+
+=item C<view_pod($self, $pod)>
+
+=item C<view_head1($self, $head1)>
+
+=item C<view_head2($self, $head2)>
+
+=item C<view_head3($self, $head3)>
+
+=item C<view_head4($self, $head4)>
+
+=item C<view_over($self, $over)>
+
+=item C<view_item($self, $item)>
+
+=item C<view_for($self, $for)>
+
+=item C<view_begin($self, $begin)>
+
+=item C<view_textblock($self, $textblock)>
+
+=item C<view_verbatim($self, $verbatim)>
+
+=item C<view_meta($self, $meta)>
+
+=back
+
+=head1 AUTHOR
+
+Andy Wardley E<lt>abw@kfs.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2000 Andy Wardley.  All Rights Reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+=cut

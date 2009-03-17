@@ -1,100 +1,70 @@
 
-NAME
-    Pod::POM - POD Object Model
-    
-SYNOPSIS
-	use Pod::POM;
-    
-	my $parser = Pod::POM->new(\%options);
-    
-	# parse from a text string
-	my $pom = $parser->parse_text($text)
-	    || die $parser->error();
-    
-	# parse from a file specified by name or filehandle
-	my $pom = $parser->parse_text($file)
-	    || die $parser->error();
-    
-	# parse from text or file 
-	my $pom = $parser->parse($text_or_file)
-	    || die $parser->error();
-    
-	# examine any warnings raised
-	foreach my $warning ($parser->warnings()) {
-	    warn $warning, "\n";
-	}
-    
-	# print table of contents using each =head1 title
-	foreach my $head1 ($pom->head1()) {
-	    print $head1->title(), "\n";
-	}
-    
-	# print each section
-	foreach my $head1 ($pom->head1()) {
-	    print $head1->title(), "\n";
-	    print $head1->content();
-	}
-    
-	# print the entire document as HTML
-	use Pod::POM::View::HTML;
-	print Pod::POM::View::HTML->print($pom);
-    
-	# create custom view
-	package My::View;
-	use base qw( Pod::POM::View::HTML );
-    
-	sub view_head1 {
-	    my ($self, $item) = @_;
-	    return "<h2>"
-                 . $item->title->present($self)
-                 . "</h2>\n\n"
-	         . $item->content->present($self);
-	}
-	
-	package main;
-	print My::View->print($pom);
-    
+                                Pod::POM
+
+                              Version 0.19
+
+                            17th March 2009
+
+        Copyright (C) 2000-2002 Andy Wardley.  All Rights Reserved
+           Copyright (C) 2009 Andrew Ford.  All Rights Reserved
+
+          This is free software; you can redistribute it and/or
+             modify it under the same terms as Perl itself.
+
+
 DESCRIPTION
-    This module implements a parser to convert Pod documents into a simple
-    object model form known hereafter as the Pod Object Model.	The object
-    model is generated as a hierarchical tree of nodes, each of which
-    represents a different element of the original document.  The tree can
-    be walked manually and the nodes examined, printed or otherwise
-    manipulated.  In addition, Pod::POM supports and provides view objects
-    which can automatically traverse the tree, or section thereof, and
-    generate an output representation in one form or another.
+-----------
 
-    See the Pod::POM documentation for further details.
+This module implements a parser to convert Pod documents into a simple object
+model form known hereafter as the Pod Object Model. The object model is
+generated as a hierarchical tree of nodes, each of which represents a
+different element of the original document.  The tree can be walked manually
+and the nodes examined, printed or otherwise manipulated.  In addition,
+Pod::POM supports and provides view objects which can automatically traverse
+the tree, or section thereof, and generate an output representation in one
+form or another.  The Template Toolkit Pod plugin interfaces to this module.
 
-PREREQUISITES
+See the Pod::POM documentation for further details.
 
-    The Pod::POM module requires Perl 5.005.
 
-INSTALLATION
 
-    The Pod::POM module can be downloaded from any CPAN site:
+STATUS
+------
 
-	http://www.cpan.org/modules/by-module/Pod/
+Development of Pod::POM was restarted in March 2009 with the aim of making the
+modules comply with perlpodspec.
 
-    Installation is as per usual:
 
-	$ tar zxf Pod-POM-0.15.tar.gz
-        $ cd Pod-POM-0.15
-        $ perl Makefile.PL
-	$ make
-	$ make test
-	$ make install
+
+SUPPORT
+-------
+
+The Pod::POM mailing list provides a forum for discussing these modules.
+
+To subscribe to the mailing list, send an email to:
+
+    pod-pom-request@template-toolkit.org
+
+with the message 'subscribe' in the body.  You can also use the web 
+interface to subscribe or browse the archives:
+
+    http://mail.template-toolkit.org/mailman/listinfo/pod-pom
+
+
 
 AUTHOR
-    Andy Wardley <abw@kfs.org>
-    
-VERSION
-    This is version 0.15 of the Pod::POM module.
-    
+------
+
+Pod::POM was originally written by Andy Wardley <abw@wardley.org>.  
+Andrew Ford <A.Ford@ford-mason.co.uk> is co-maintainer as of March 2009.
+
+
 COPYRIGHT
-    Copyright (C) 2000-2002 Andy Wardley.  All Rights Reserved.
-    
-    This module is free software; you can redistribute it and/or
-    modify it under the same terms as Perl itself.
-    
-    
+---------
+
+Copyright (C) 2000-2002 Andy Wardley.  All Rights Reserved.
+Copyright (C) 2009 Andrew Ford.  All Rights Reserved
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
+

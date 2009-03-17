@@ -9,11 +9,23 @@
 #   Andy Wardley   <abw@kfs.org>
 #
 #------------------------------------------------------------------------
-# $Id: Changes 16 2009-03-16 14:36:19Z ford $
+# $Id: Changes 42 2009-03-17 21:17:49Z ford $
 #========================================================================
 
 #------------------------------------------------------------------------
-# Version 0.19  2009-
+# Version 0.20  2009-03-17
+#------------------------------------------------------------------------
+
+* Added basic pod documentation to the view modules
+
+* expanded the test cases (especially expanded sequences and blockquote
+  paragraphs)
+
+* add support for blockquote paragraphs to Text and HTML views
+
+
+#------------------------------------------------------------------------
+# Version 0.19  2009-03-17
 #------------------------------------------------------------------------
 
 * Added dump method to Pod::POM::Node
