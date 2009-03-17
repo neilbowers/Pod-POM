@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Text.pm,v 1.3 2002/03/18 07:47:36 stas Exp $
+#   $Id: Text.pm 29 2009-03-17 07:46:38Z ford $
 #
 #========================================================================
 
@@ -131,6 +131,18 @@ sub view_head4 {
 }
 
 
+#------------------------------------------------------------------------
+# view_over($self, $over)
+#
+# Present an =over block - this is a blockquote if there are no =items
+# within the block.
+#------------------------------------------------------------------------
+
+#sub view_over {
+#    my ($self, $over) = @_;
+#
+#}
+
 sub view_item {
     my ($self, $item) = @_;
     my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
@@ -215,6 +227,10 @@ my $entities = {
 sub view_seq_entity {
     my ($self, $entity) = @_;
     return $entities->{ $entity } || $entity;
+}
+
+sub view_seq_index {
+    return '';
 }
 
 sub view_seq_link {

@@ -6,6 +6,7 @@ TODO
 bin/custom-pom2
 bin/podlint
 bin/pom2
+bin/pomdump
 lib/Pod/POM.pm
 lib/Pod/POM/Constants.pm
 lib/Pod/POM/Node.pm
@@ -15,6 +16,11 @@ lib/Pod/POM/View.pm
 lib/Pod/POM/View/HTML.pm
 lib/Pod/POM/View/Pod.pm
 lib/Pod/POM/View/Text.pm
+t/00-use-modules.t
+t/10-parser.t
+t/11-view-pod.t
+t/12-view-text.t
+t/13-view-html.t
 t/code.t
 t/complete.t
 t/head.t
@@ -29,4 +35,22 @@ t/textview.t
 t/view.t
 t/warn.t
 t/wrap.t
+t/PodPOMTestLib.pm
+t/testcases/100-simple-document.pod
+t/testcases/100-simple-document.pom-dump
+t/testcases/100-simple-document.view-html
+t/testcases/100-simple-document.view-pod
+t/testcases/100-simple-document.view-text
+t/testcases/130-blockquote-paragraphs.pod
+t/testcases/130-blockquote-paragraphs.pom-dump
+t/testcases/130-blockquote-paragraphs.view-text
+t/testcases/130-blockquote-paragraphs.yml
+t/testcases/140-lists.pod
+t/testcases/140-lists.pom-dump
+t/testcases/140-lists.view-html
+t/testcases/200-simple-sequences.pod
+t/testcases/200-simple-sequences.pom-dump
+t/testcases/200-simple-sequences.view-html
+t/testcases/200-simple-sequences.view-pod
+t/testcases/200-simple-sequences.view-text
 META.yml                                 Module meta-data (added by MakeMaker)

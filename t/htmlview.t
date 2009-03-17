@@ -199,7 +199,8 @@ as well.
 
 ------------------------------------------------------------------------
 
-<html><body bgcolor="#ffffff">
+<html>
+<body bgcolor="#ffffff">
 <h1>NAME</h1>
 
 <p>Test</p>
@@ -300,5 +301,6 @@ some text
 <p>See also <i>Test Page 2</i>, the <i>Your::Module</i> and <i>Their::Module</i>
 manpages and the other interesting file <i>/usr/local/my/module/rocks</i>
 as well.</p>
-</body></html>
+</body>
+</html>
 

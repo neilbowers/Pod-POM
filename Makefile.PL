@@ -6,6 +6,7 @@ my %opts = (
     'EXE_FILES'    => [ 'bin/pom2', 'bin/podlint' ],
     'PREREQ_PM'    => { 
         'Text::Wrap' => 0,
+        'YAML::Any'  => 0,
     },
     'dist'         => {
 	'COMPRESS' => 'gzip',

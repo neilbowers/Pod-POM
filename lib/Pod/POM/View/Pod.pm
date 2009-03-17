@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Pod.pm,v 1.3 2002/04/22 04:29:10 stas Exp $
+#   $Id: Pod.pm 14 2009-03-13 08:19:40Z ford $
 #
 #========================================================================
 

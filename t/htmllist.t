@@ -91,7 +91,8 @@ The crazy item
 
 ------------------------------------------------------------------------
 
-<html><body bgcolor="#ffffff">
+<html>
+<body bgcolor="#ffffff">
 <h1>Test</h1>
 
 <ul>
@@ -129,5 +130,6 @@ The crazy item
 <p>The crazy item</p>
 </li>
 </ul>
-</body></html>
+</body>
+</html>
 

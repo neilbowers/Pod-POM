@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: HTML.pm,v 1.6 2002/03/18 07:47:36 stas Exp $
+#   $Id: HTML.pm 27 2009-03-17 07:13:14Z ford $
 #
 #========================================================================
 
@@ -75,9 +75,9 @@ sub view {
 
 sub view_pod {
     my ($self, $pod) = @_;
-    return "<html><body bgcolor=\"#ffffff\">\n"
+    return "<html>\n<body bgcolor=\"#ffffff\">\n"
  	. $pod->content->present($self)
-        . "</body></html>\n";
+        . "</body>\n</html>\n";
 }
 
 
@@ -243,6 +243,11 @@ sub view_seq_space {
 sub view_seq_entity {
     my ($self, $entity) = @_;
     return "&$entity;"
+}
+
+
+sub view_seq_index {
+    return '';
 }
 
 

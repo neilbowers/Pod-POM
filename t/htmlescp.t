@@ -44,7 +44,8 @@ This is some C<$code($arg1)>.
 
 ------------------------------------------------------------------------
 
-<html><body bgcolor="#ffffff">
+<html>
+<body bgcolor="#ffffff">
 <h1>NAME</h1>
 
 <p>I am a stupid fool who puts naked &lt; &amp; &gt; characters in my POD
@@ -52,5 +53,6 @@ instead of escaping them as &lt; and &gt;.</p>
 <p>Here is some <b>bold</b> text, some <i>italic</i> plus <i>/etc/fstab</i>
 file and something that looks like an &lt;html&gt; tag.
 This is some <code>$code($arg1)</code>.</p>
-</body></html>
+</body>
+</html>
 

@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Node.pm,v 1.5 2003/07/24 15:41:00 abw Exp $
+#   $Id: Node.pm 20 2009-03-16 16:10:59Z ford $
 #
 #========================================================================
 
@@ -25,7 +25,7 @@ require 5.004;
 
 use strict;
 use Pod::POM::Nodes;
-use Pod::POM::Constants qw( :status );
+use Pod::POM::Constants qw( :all );
 use vars qw( $VERSION $DEBUG $ERROR $NODES $NAMES $AUTOLOAD );
 
 $VERSION = sprintf("%d.%02d", q$Revision: 1.5 $ =~ /(\d+)\.(\d+)/);
@@ -253,6 +253,88 @@ sub error {
     }
 }
 
+
+#------------------------------------------------------------------------
+# dump()
+#
+# Returns a representation of the element and all its children in a 
+# format useful only for debugging.  The structure of the document is 
+# shown by indentation (inspired by HTML::Element).
+#------------------------------------------------------------------------
+
+sub dump {
+    my($self, $depth) = @_;
+    my $output;
+    $depth = 0 unless defined $depth;
+    my $nodepkg = ref $self;
+    if ($self->isa('REF')) {
+        $self = $$self;
+        my $cmd = $self->[CMD];
+        my @content = @{ $self->[CONTENT] };
+        if ($cmd) {
+            $output .= ("  " x $depth) . $cmd . $self->[LPAREN] . "\n";
+        }
+        foreach my $item (@content) {
+            if (ref $item) {
+                $output .= $item->dump($depth+1);  # recurse
+            }
+            else {  # text node
+                foreach my $line (split(/\n/s, $item)) {
+                    $output .= "  " x ($depth + 1);
+                    if ($line and (length($line) > 65 or $line =~ m<[\x00-\x1F]>)) {
+                        # it needs prettyin' up somehow or other
+                        my $x = (length($line) <= 65) ? $line : (substr($line, 0, 65) . '...');
+                        $x =~ s<([\x00-\x1F])>
+                            <'\\x'.(unpack("H2",$1))>eg;
+                        $output .= qq{"$x"\n};
+                    } else {
+                        $output .= qq{"$line"\n};
+                    }
+                }
+            }
+        }
+        if ($cmd) {
+            $output .= ("  " x $depth) . $self->[RPAREN] . "\n", ;
+        }
+    }
+    else {
+        no strict 'refs';
+        my @attrs = sort keys %{"*${nodepkg}::ATTRIBS"};
+        $output .= ("  " x $depth) . $self->type . "\n";
+        foreach my $attr (@attrs) {
+            if (my $value = $self->{$attr}) {
+                $output .= ("  " x ($depth+1)) . "\@$attr\n";
+                
+                if (ref $value) {
+                    $output .= $value->dump($depth+1);
+                }
+                else {
+                    $output .= ("  " x ($depth+2)) . "\"$value\"\n";
+                }
+            }
+        }
+        foreach my $item (@{$self->{content}}) {
+            if (ref $item) {  # element
+                $output .= $item->dump($depth+1);  # recurse
+            } 
+            else {  # text node
+                foreach my $line (split(/\n/s, $item)) {
+                    $output .= "  " x ($depth + 1);
+                    if (length($line) > 65 or m<[\x00-\x1F]>) {
+                        # it needs prettyin' up somehow or other
+                        my $x = (length($line) <= 65) ? $_ : (substr($line, 0, 65) . '...');
+                        $x =~ s<([\x00-\x1F])>
+                            <'\\x'.(unpack("H2",$1))>eg;
+                        $output .= qq{"$x"\n};
+                    } else {
+                        $output .= qq{"$line"\n};
+                    }
+                }
+            }
+        }
+    }
+    return $output;
+}
 
 #------------------------------------------------------------------------
 # AUTOLOAD
