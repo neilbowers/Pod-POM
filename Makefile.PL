@@ -1,3 +1,4 @@
+use 5.005;
 use ExtUtils::MakeMaker;
 
 my %opts = (
@@ -6,7 +7,11 @@ my %opts = (
     'EXE_FILES'    => [ 'bin/pom2', 'bin/podlint' ],
     'PREREQ_PM'    => { 
         'Text::Wrap' => 0,
-        'YAML::Any'  => 0,
+
+        # Required for testing
+        'File::Slurp'       => 0,
+        'Test::Differences' => 0,
+        'YAML::Any'         => 0,
     },
     'dist'         => {
 	'COMPRESS' => 'gzip',
@@ -17,6 +22,14 @@ my %opts = (
 if ($ExtUtils::MakeMaker::VERSION >= 5.43) {
     $opts{ AUTHOR }   = 'Andy Wardley <abw@kfs.org>';
     $opts{ ABSTRACT } = 'POD Object Model',
+}
+
+if ($ExtUtils::MakeMaker::VERSION >= 6.31) {
+    $opts{ LICENSE } = 'perl';
+} 
+
+if ($ExtUtils::MakeMaker::VERSION >= 6.48) {
+    $opts{ MIN_PERL_VERSION } = '5.005';
 }
 
 WriteMakefile( %opts );
