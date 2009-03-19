@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Pod-POM
-version:            0.21
+version:            0.22
 abstract:           POD Object Model
 author:
     - Andy Wardley <abw@kfs.org>
@@ -9,9 +9,11 @@ distribution_type:  module
 configure_requires:
     ExtUtils::MakeMaker:  0
 requires:
+    Class::Accessor:    0
     File::Slurp:        0
     perl:               5.005
     Test::Differences:  0
+    Test::More:         0
     Text::Wrap:         0
     YAML::Any:          0
 no_index:

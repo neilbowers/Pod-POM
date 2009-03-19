@@ -4,12 +4,14 @@ use ExtUtils::MakeMaker;
 my %opts = (
     'NAME'	   => 'Pod::POM',
     'VERSION_FROM' => 'lib/Pod/POM.pm',
-    'EXE_FILES'    => [ 'bin/pom2', 'bin/podlint' ],
+    'EXE_FILES'    => [ 'bin/pom2', 'bin/podlint', 'bin/pomdump' ],
     'PREREQ_PM'    => { 
         'Text::Wrap' => 0,
 
         # Required for testing
+        'Class::Accessor'   => 0,
         'File::Slurp'       => 0,
+        'Test::More'        => 0,
         'Test::Differences' => 0,
         'YAML::Any'         => 0,
     },
