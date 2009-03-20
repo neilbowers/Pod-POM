@@ -7,10 +7,28 @@
 #
 # AUTHOR
 #   Andy Wardley   <abw@kfs.org>
+#   Andrew Ford    <A.Ford@ford-mason.co.uk>
 #
 #------------------------------------------------------------------------
-# $Id: Changes 53 2009-03-19 10:28:32Z ford $
+# $Id: Changes 63 2009-03-20 12:50:56Z ford $
 #========================================================================
+
+#------------------------------------------------------------------------
+# Version 0.23  2009-03-20
+#------------------------------------------------------------------------
+
+* Applied JJ's patch for coalescing verbatim paragraphs separated by blank lines
+  and refined verbatim paragraph test cases and expected output
+
+* Tweaked pom dump format to quote individual text lines
+
+* Tweaked PodPOMTestLib to remove dependency on Class::Accessor
+
+* Added test cases for =headN hierarchy and =begin blocks
+
+* Added format name to =end in Pod::POM::View::Pod
+
+* Switch Makefile.PL to Module::Include
 
 #------------------------------------------------------------------------
 # Version 0.22  2009-03-19

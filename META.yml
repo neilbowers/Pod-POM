@@ -1,26 +1,25 @@
---- #YAML:1.0
-name:               Pod-POM
-version:            0.22
-abstract:           POD Object Model
+---
+abstract: 'POD Object Model'
 author:
-    - Andy Wardley <abw@kfs.org>
-license:            perl
-distribution_type:  module
+  - 'Andy Wardley <abw@kfs.org>'
 configure_requires:
-    ExtUtils::MakeMaker:  0
-requires:
-    Class::Accessor:    0
-    File::Slurp:        0
-    perl:               5.005
-    Test::Differences:  0
-    Test::More:         0
-    Text::Wrap:         0
-    YAML::Any:          0
-no_index:
-    directory:
-        - t
-        - inc
-generated_by:       ExtUtils::MakeMaker version 6.48
+  ExtUtils::MakeMaker: 6.48
+distribution_type: module
+generated_by: 'Module::Install version 0.79'
+license: unknown
 meta-spec:
-    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
-    version:  1.4
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+module_name: Pod::POM
+name: Pod-POM
+no_index:
+  directory:
+    - inc
+    - t
+requires:
+  File::Slurp: 0
+  Test::Differences: 0
+  Test::More: 0
+  Text::Wrap: 0
+  YAML::Any: 0
+version: 0.23

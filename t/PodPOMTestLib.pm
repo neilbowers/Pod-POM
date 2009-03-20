@@ -109,9 +109,18 @@ sub get_tests {
 1;
 
 package PodPOMTestCase;
-use strict;
-use base 'Class::Accessor';
 
-__PACKAGE__->mk_accessors( qw(input options expect title) );
+use strict;
+
+sub new {
+    my ($class, $opts) = @_;
+
+    return bless $opts, $class;
+}
+
+sub input   { return $_[0]->{input};   }
+sub options { return $_[0]->{options}; }
+sub expect  { return $_[0]->{expect};  }
+sub title   { return $_[0]->{title};   }
 
 1;

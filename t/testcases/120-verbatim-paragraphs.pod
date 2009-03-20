@@ -4,6 +4,18 @@
 
 =head1 EXAMPLES
 
+=head2 Simple Verbatim Section Content
+
+    First line
+
+    Second line
+    (note blank line with one space and empty line follow)
+ 
+
+    Third line
+
+=head2 Verbatim Interspersed with Normal Text
+
 Text before verbatim paragraph.
 
     Verbatim paragraph

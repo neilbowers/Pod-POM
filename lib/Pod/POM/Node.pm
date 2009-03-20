@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Node.pm 20 2009-03-16 16:10:59Z ford $
+#   $Id: Node.pm 60 2009-03-20 12:41:35Z ford $
 #
 #========================================================================
 
@@ -27,6 +27,7 @@ use strict;
 use Pod::POM::Nodes;
 use Pod::POM::Constants qw( :all );
 use vars qw( $VERSION $DEBUG $ERROR $NODES $NAMES $AUTOLOAD );
+use constant DUMP_LINE_LENGTH => 80;
 
 $VERSION = sprintf("%d.%02d", q$Revision: 1.5 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
@@ -279,21 +280,10 @@ sub dump {
                 $output .= $item->dump($depth+1);  # recurse
             }
             else {  # text node
-                foreach my $line (split(/\n/s, $item)) {
-                    $output .= "  " x ($depth + 1);
-                    if ($line and (length($line) > 65 or $line =~ m<[\x00-\x1F]>)) {
-                        # it needs prettyin' up somehow or other
-                        my $x = (length($line) <= 65) ? $line : (substr($line, 0, 65) . '...');
-                        $x =~ s<([\x00-\x1F])>
-                            <'\\x'.(unpack("H2",$1))>eg;
-                        $output .= qq{"$x"\n};
-                    } else {
-                        $output .= qq{"$line"\n};
-                    }
-                }
-            }
-        }
-        if ($cmd) {
+		$output .= _dump_text($item, $depth+1);
+	    }
+	}
+	if ($cmd) {
             $output .= ("  " x $depth) . $self->[RPAREN] . "\n", ;
         }
     }
@@ -309,7 +299,7 @@ sub dump {
                     $output .= $value->dump($depth+1);
                 }
                 else {
-                    $output .= ("  " x ($depth+2)) . "\"$value\"\n";
+                    $output .= _dump_text($value, $depth+2);
                 }
             }
         }
@@ -318,23 +308,36 @@ sub dump {
                 $output .= $item->dump($depth+1);  # recurse
             } 
             else {  # text node
-                foreach my $line (split(/\n/s, $item)) {
-                    $output .= "  " x ($depth + 1);
-                    if (length($line) > 65 or m<[\x00-\x1F]>) {
-                        # it needs prettyin' up somehow or other
-                        my $x = (length($line) <= 65) ? $_ : (substr($line, 0, 65) . '...');
-                        $x =~ s<([\x00-\x1F])>
-                            <'\\x'.(unpack("H2",$1))>eg;
-                        $output .= qq{"$x"\n};
-                    } else {
-                        $output .= qq{"$line"\n};
-                    }
-                }
-            }
-        }
+		$output .= _dump_text($item, $depth+1);
+	    }
+	}
+    }
+
+    return $output;
+}
+
+sub _dump_text {
+    my ($text, $depth) = @_;
+
+    my $output       = "";
+    my $padding      = "  " x $depth;
+    my $max_text_len = DUMP_LINE_LENGTH - length($depth) - 2;
+
+    foreach my $line (split(/\n/, $text)) {
+	$output .= $padding;
+	if (length($line) > $max_text_len or $line =~ m<[\x00-\x1F]>) {
+	    # it needs prettyin' up somehow or other
+	    my $x = (length($line) <= $max_text_len) ? $_ : (substr($line, 0, $max_text_len) . '...');
+	    $x =~ s<([\x00-\x1F])>
+		<'\\x'.(unpack("H2",$1))>eg;
+	    $output .= qq{"$x"\n};
+	} else {
+	    $output .= qq{"$line"\n};
+	}
     }
     return $output;
 }
+
 
 #------------------------------------------------------------------------
 # AUTOLOAD

@@ -34,6 +34,12 @@ pod
         @text
           "Here is the third paragraph in"
           "the blockquote."
+      over
+        @indent
+          "4"
+        text
+          @text
+            "Nested blockquote paragraph."
     text
       @text
         "[EOF]"

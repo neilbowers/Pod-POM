@@ -206,9 +206,9 @@ as well.
 <p>Test</p>
 <h1>SYNOPSIS</h1>
 
-<pre>    use My::Module;</pre>
+<pre>    use My::Module;
 
-<pre>    my $module = My::Module-&gt;new();</pre>
+    my $module = My::Module-&gt;new();</pre>
 
 <h1>DESCRIPTION</h1>
 

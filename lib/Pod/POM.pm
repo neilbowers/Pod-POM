@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: POM.pm 53 2009-03-19 10:28:32Z ford $
+#   $Id: POM.pm 57 2009-03-20 12:33:18Z ford $
 #
 #========================================================================
 
@@ -34,7 +34,7 @@ use Pod::POM::View::Pod;
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 use base qw( Exporter );
 
-$VERSION = '0.22';
+$VERSION = '0.23';
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
@@ -157,7 +157,7 @@ sub parse_file {
 
 sub parse_text {
     my ($self, $text, $name) = @_;
-    my ($para, $paralen, $gap, $type, $line, $inpod, $code, $result);
+    my ($para, $paralen, $gap, $type, $line, $inpod, $code, $result, $verbatim);
     my $warn = $self->{ WARNINGS } = [ ];
 
     my @stack = ( );
@@ -200,14 +200,53 @@ sub parse_text {
 	    $gap   = '';
 	}
 	elsif ($para =~ /^\s+/) {
-	    $type = 'verbatim';
+            $verbatim .= $para;
+            $verbatim .= $gap;
+            next;
 	}
 	else {
 	    $type = 'text';
 	    chomp($para);	    # catches last line in file
 	}
+
+        if ($verbatim) {
+    	    while(@stack) {
+                $verbatim =~ s/\s+$//s;
+       	        $result = $stack[-1]->add($self, 'verbatim', $verbatim);
+            
+	        if (! defined $result) {
+                    $self->warning($stack[-1]->error(), $name, $$line);
+                    undef $verbatim;
+		    last;
+	        }
+	        elsif (ref $result) {
+                    push(@stack, $result);
+                    undef $verbatim;
+		    last;
+	        }
+	        elsif ($result == REDUCE) {
+                    pop @stack;
+                    undef $verbatim;
+		    last;
+	        }
+	        elsif ($result == REJECT) {
+                    $self->warning($stack[-1]->error(), $name, $$line);
+		    pop @stack;
+	        }
+	        elsif (@stack == 1) {
+                    $self->warning("unexpected $type", $name, $$line);
+                    undef $verbatim;
+		    last;
+	        }
+	        else {
+                    pop @stack;
+	        }
+	    }
+        }
+
 	while(@stack) {
 	    $result = $stack[-1]->add($self, $type, $para);
+            
 	    if (! defined $result) {
 		$self->warning($stack[-1]->error(), $name, $$line);
 		last;
@@ -236,6 +275,41 @@ sub parse_text {
     continue {
 	$$line += ($para =~ tr/\n//);
 	$$line += ($gap  =~ tr/\n//);
+    }
+
+    if ($verbatim) {
+	while(@stack) {
+            $verbatim =~ s/\s+$//s;
+	    $result = $stack[-1]->add($self, 'verbatim', $verbatim);
+            
+	    if (! defined $result) {
+		$self->warning($stack[-1]->error(), $name, $$line);
+                undef $verbatim;
+		last;
+	    }
+	    elsif (ref $result) {
+		push(@stack, $result);
+                undef $verbatim;
+		last;
+	    }
+	    elsif ($result == REDUCE) {
+		pop @stack;
+                undef $verbatim;
+		last;
+	    }
+	    elsif ($result == REJECT) {
+		$self->warning($stack[-1]->error(), $name, $$line);
+		pop @stack;
+	    }
+	    elsif (@stack == 1) {
+		$self->warning("unexpected $type", $name, $$line);
+                undef $verbatim;
+		last;
+	    }
+	    else {
+		pop @stack;
+	    }
+	}
     }
 
     return $stack[0];
@@ -1518,7 +1592,7 @@ Andrew Ford E<lt>A.Ford@ford-mason.co.ukE<gt> (co-maintainer as of 03/2009)
 
 =head1 VERSION
 
-This is version 0.22 of the Pod::POM module.
+This is version 0.23 of the Pod::POM module.
 
 =head1 COPYRIGHT
 

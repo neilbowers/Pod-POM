@@ -16,6 +16,9 @@
 the blockquote.</p>
 <p>Here is the third paragraph in
 the blockquote.</p>
+<blockquote>
+<p>Nested blockquote paragraph.</p>
+</blockquote>
 </blockquote>
 <p>[EOF]</p>
 </body>

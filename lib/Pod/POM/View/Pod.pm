@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Pod.pm 35 2009-03-17 21:11:53Z ford $
+#   $Id: Pod.pm 61 2009-03-20 12:42:40Z ford $
 #
 #========================================================================
 
@@ -158,7 +158,9 @@ sub view_begin {
 	. $begin->format() 
 	. "\n\n"
 	. $begin->content->present($self)
-        . "=end\n\n";
+        . "=end "
+	. $begin->format() 
+	. "\n\n";
 }
     
 

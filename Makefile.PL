@@ -1,5 +1,5 @@
 use 5.005;
-use ExtUtils::MakeMaker;
+use inc::Module::Install;
 
 my %opts = (
     'NAME'	   => 'Pod::POM',
@@ -9,7 +9,6 @@ my %opts = (
         'Text::Wrap' => 0,
 
         # Required for testing
-        'Class::Accessor'   => 0,
         'File::Slurp'       => 0,
         'Test::More'        => 0,
         'Test::Differences' => 0,

@@ -34,7 +34,7 @@ EOF
 
 =head1 NAME
 
-pomdump - dump the POM structure of a POD document
+pomdump - dump the POM parse tree for a POD document
 
 =head1 SYNOPSIS
 

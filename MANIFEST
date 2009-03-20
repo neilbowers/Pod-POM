@@ -1,5 +1,6 @@
 Changes
 MANIFEST
+META.yml
 Makefile.PL
 README
 TODO
@@ -7,6 +8,11 @@ bin/custom-pom2
 bin/podlint
 bin/pom2
 bin/pomdump
+inc/Module/Install.pm
+inc/Module/Install/Base.pm
+inc/Module/Install/MakeMaker.pm
+inc/Module/Install/Makefile.pm
+inc/Module/Install/Metadata.pm
 lib/Pod/POM.pm
 lib/Pod/POM/Constants.pm
 lib/Pod/POM/Node.pm
@@ -21,6 +27,7 @@ t/10-parser.t
 t/11-view-pod.t
 t/12-view-text.t
 t/13-view-html.t
+t/PodPOMTestLib.pm
 t/code.t
 t/complete.t
 t/head.t
@@ -30,12 +37,6 @@ t/htmlview.t
 t/list.t
 t/meta.t
 t/test.pod
-t/text.t
-t/textview.t
-t/view.t
-t/warn.t
-t/wrap.t
-t/PodPOMTestLib.pm
 t/testcases/100-simple-document.pod
 t/testcases/100-simple-document.pom-dump
 t/testcases/100-simple-document.view-html
@@ -43,7 +44,9 @@ t/testcases/100-simple-document.view-pod
 t/testcases/100-simple-document.view-text
 t/testcases/120-verbatim-paragraphs.pod
 t/testcases/120-verbatim-paragraphs.pom-dump
+t/testcases/120-verbatim-paragraphs.view-html
 t/testcases/120-verbatim-paragraphs.view-pod
+t/testcases/120-verbatim-paragraphs.view-text
 t/testcases/120-verbatim-paragraphs.yml
 t/testcases/130-blockquote-paragraphs.pod
 t/testcases/130-blockquote-paragraphs.pom-dump
@@ -54,9 +57,19 @@ t/testcases/130-blockquote-paragraphs.yml
 t/testcases/140-lists.pod
 t/testcases/140-lists.pom-dump
 t/testcases/140-lists.view-html
-t/testcases/140-lists.view-text
 t/testcases/140-lists.view-pod
+t/testcases/140-lists.view-text
 t/testcases/140-lists.yml
+t/testcases/150-head-sections.pod
+t/testcases/150-head-sections.pom-dump
+t/testcases/150-head-sections.view-html
+t/testcases/150-head-sections.view-pod
+t/testcases/150-head-sections.view-text
+t/testcases/160-begin-block.pod
+t/testcases/160-begin-block.pom-dump
+t/testcases/160-begin-block.view-html
+t/testcases/160-begin-block.view-pod
+t/testcases/160-begin-block.view-text
 t/testcases/200-simple-sequences.pod
 t/testcases/200-simple-sequences.pom-dump
 t/testcases/200-simple-sequences.view-html
@@ -67,4 +80,14 @@ t/testcases/210-extended-sequences.pom-dump
 t/testcases/210-extended-sequences.view-html
 t/testcases/210-extended-sequences.view-pod
 t/testcases/210-extended-sequences.view-text
-META.yml                                 Module meta-data (added by MakeMaker)
+t/testcases/220-mixed-sequences.pod
+t/testcases/220-mixed-sequences.pom-dump
+t/testcases/220-mixed-sequences.view-html
+t/testcases/220-mixed-sequences.view-pod
+t/testcases/220-mixed-sequences.view-text
+t/testcases/220-mixed-sequences.yml
+t/text.t
+t/textview.t
+t/view.t
+t/warn.t
+t/wrap.t

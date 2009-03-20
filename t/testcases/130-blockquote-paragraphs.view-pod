@@ -24,6 +24,12 @@ the blockquote.
 Here is the third paragraph in
 the blockquote.
 
+=over 4
+
+Nested blockquote paragraph.
+
+=back
+
 =back
 
 [EOF]
