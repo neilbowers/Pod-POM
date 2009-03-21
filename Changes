@@ -10,8 +10,20 @@
 #   Andrew Ford    <A.Ford@ford-mason.co.uk>
 #
 #------------------------------------------------------------------------
-# $Id: Changes 63 2009-03-20 12:50:56Z ford $
+# $Id: Changes 67 2009-03-21 10:18:17Z ford $
 #========================================================================
+
+#------------------------------------------------------------------------
+# Version 0.24  2009-03-21
+#------------------------------------------------------------------------
+
+* fixed broken YAML files in testcases that were causing tests to fail on
+  some platforms
+
+* added text and HTML verbatim paragraph view tests
+
+* fixed typo in synopsis in Pod::POM
+
 
 #------------------------------------------------------------------------
 # Version 0.23  2009-03-20
