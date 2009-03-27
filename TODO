@@ -4,6 +4,8 @@
 
 * fix link generation via L<...>
 
+* handle =encoding
+
 * more views for different styles, formats, etc.
 
 * According to the new podspec: C<< o->foo >> is the same as

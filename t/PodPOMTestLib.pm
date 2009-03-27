@@ -9,9 +9,8 @@ use base 'Exporter';
 
 use Pod::POM;
 use Test::More;
-use Test::Differences;
 use File::Slurp;
-use YAML::Any;
+use YAML::Tiny;
 
 # use Data::Dumper; # for debugging
 
@@ -45,6 +44,15 @@ sub run_tests {
 
     plan tests => int @tests;
 
+    # Select whether to use eq_or_diff() or is() according to whether
+    # Test::Differences is available.
+
+    eval {
+	require Test::Differences;
+	Test::Differences->import;
+    };
+    my $eq = $@ ? \&is : \&eq_or_diff;
+
     foreach my $test (@tests) {
       TODO:
         eval {
@@ -54,9 +62,10 @@ sub run_tests {
             my $pom    = $pod_parser->parse_text($test->input);
             my $result = $view ? $pom->present($view) : $pom->dump;
 
-            eq_or_diff $result, $test->expect, $test->title;
+            $eq->($result, $test->expect, $test->title);
         };
         if ($@) {
+            diag($@);
             fail($test->title);
         }
     }

@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: POM.pm 66 2009-03-21 10:18:03Z ford $
+#   $Id: POM.pm 71 2009-03-27 16:24:19Z ford $
 #
 #========================================================================
 
@@ -34,7 +34,7 @@ use Pod::POM::View::Pod;
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 use base qw( Exporter );
 
-$VERSION = '0.24';
+$VERSION = '0.25';
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
@@ -1592,7 +1592,7 @@ Andrew Ford E<lt>A.Ford@ford-mason.co.ukE<gt> (co-maintainer as of 03/2009)
 
 =head1 VERSION
 
-This is version 0.24 of the Pod::POM module.
+This is version 0.25 of the Pod::POM module.
 
 =head1 COPYRIGHT
 

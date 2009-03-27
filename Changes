@@ -10,8 +10,23 @@
 #   Andrew Ford    <A.Ford@ford-mason.co.uk>
 #
 #------------------------------------------------------------------------
-# $Id: Changes 67 2009-03-21 10:18:17Z ford $
+# $Id: Changes 71 2009-03-27 16:24:19Z ford $
 #========================================================================
+
+#------------------------------------------------------------------------
+# Version 0.25  2009-03-27
+#------------------------------------------------------------------------
+
+* updated Makefile.PL to use Module::Include properly - i.e. flag modules
+  as test_requires as appropriate
+
+* output test failure reason with diag()
+
+* added t/YAML/Tiny.pm (self-contained YAML library) to remove test-only
+  module dependency
+
+* test library uses Test::Differences if available but package does not 
+  list it as a dependency
 
 #------------------------------------------------------------------------
 # Version 0.24  2009-03-21
