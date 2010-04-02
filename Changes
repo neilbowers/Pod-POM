@@ -10,8 +10,32 @@
 #   Andrew Ford    <A.Ford@ford-mason.co.uk>
 #
 #------------------------------------------------------------------------
-# $Id: Changes 71 2009-03-27 16:24:19Z ford $
+# $Id: Changes 88 2010-04-02 13:37:41Z ford $
 #========================================================================
+
+#------------------------------------------------------------------------
+# Version 0.27  2010-04-02
+#------------------------------------------------------------------------
+
+* changed 'unless (defined (%{"$class\::ACCEPT"}))' to just
+  'unless (%{"$class\::ACCEPT"})' in Pod::POM::Node to fix defect #56205
+  (use of the now deprecated "defined(%hash)" construct)
+
+#------------------------------------------------------------------------
+# Version 0.26  2009-08-20
+#------------------------------------------------------------------------
+
+* updated Makefile.PL to require at least 2001.0929 of Text::Wrap, as 
+  versions prior to this always unexpand tabs.
+
+* applied Andreas Koenig's encoding patch
+
+* changed 'use base' to 'use parent'
+
+* split Pod::POM::Nodes into separate modules, retaining the original file
+  to just use all the individual node modules.
+
+* added AF to author and copyright info for modules (in addition to ABW)
 
 #------------------------------------------------------------------------
 # Version 0.25  2009-03-27

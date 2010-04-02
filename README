@@ -1,12 +1,12 @@
 
                                 Pod::POM
 
-                              Version 0.19
+                              Version 0.26
 
-                            17th March 2009
+                             1st April 2010
 
         Copyright (C) 2000-2002 Andy Wardley.  All Rights Reserved
-           Copyright (C) 2009 Andrew Ford.  All Rights Reserved
+        Copyright (C) 2009-2010 Andrew Ford.   All Rights Reserved
 
           This is free software; you can redistribute it and/or
              modify it under the same terms as Perl itself.
@@ -63,7 +63,7 @@ COPYRIGHT
 ---------
 
 Copyright (C) 2000-2002 Andy Wardley.  All Rights Reserved.
-Copyright (C) 2009 Andrew Ford.  All Rights Reserved
+Copyright (C) 2009-2010 Andrew Ford.   All Rights Reserved.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.

@@ -94,6 +94,8 @@ sub get_tests {
 	my ($title, $options);
 	my $podtext = read_file($podfile);
 	my $expect  = read_file("${basepath}.$expect_ext");
+        require Encode;
+        Encode::_utf8_on($expect);
 
         # fetch options from YAML files - need to work out semantics
 

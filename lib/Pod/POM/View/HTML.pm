@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: HTML.pm 33 2009-03-17 21:10:42Z ford $
+#   $Id: HTML.pm 84 2009-08-20 21:07:00Z ford $
 #
 #========================================================================
 
@@ -25,7 +25,7 @@ require 5.004;
 
 use strict;
 use Pod::POM::View;
-use base qw( Pod::POM::View );
+use parent qw( Pod::POM::View );
 use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD );
 use Text::Wrap;
 
@@ -401,6 +401,11 @@ sub view_seq_text {
      return $text;
 }
 
+sub encode {
+    my($self,$text) = @_;
+    require Encode;
+    return Encode::encode("ascii",$text,Encode::FB_XMLCREF());
+}
 
 1;
 

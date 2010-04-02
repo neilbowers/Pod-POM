@@ -13,12 +13,13 @@
 #
 # COPYRIGHT
 #   Copyright (C) 2000-2009 Andy Wardley.  All Rights Reserved.
+#   Copyright (C) 2009 Andrew Ford.  All Rights Reserved.
 #
 #   This module is free software; you can redistribute it and/or
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: POM.pm 71 2009-03-27 16:24:19Z ford $
+#   $Id: POM.pm 88 2010-04-02 13:37:41Z ford $
 #
 #========================================================================
 
@@ -34,7 +35,7 @@ use Pod::POM::View::Pod;
 use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
 use base qw( Exporter );
 
-$VERSION = '0.25';
+$VERSION = '0.27';
 $DEBUG   = 0 unless defined $DEBUG;
 $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
@@ -173,6 +174,18 @@ sub parse_text {
     $line   = \$self->{ LINE };
     $$line  = 1;
     $inpod  = 0;
+
+    my @encchunks = split /^(=encoding.*)/m, $text;
+    $text = shift @encchunks;
+    while (@encchunks) {
+        my($encline,$chunk) = splice @encchunks, 0, 2;
+        require Encode;
+        my($encoding) = $encline =~ /^=encoding\s+(\S+)/;
+        Encode::from_to($chunk, $encoding, "utf8");
+        Encode::_utf8_on($chunk);
+        # $text .= "xxx$encline";
+        $text .= $chunk;
+    }
 
 # patch from JJ    
 #    while ($text =~ /(?:(.*?)(\n{2,}))|(.+$)/sg) {

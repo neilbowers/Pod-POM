@@ -9,8 +9,10 @@ license      'perl';
 perl_version '5.006';
 all_from     'lib/Pod/POM.pm';
 
+requires      'Encode'            => 0;
+requires      'Text::Wrap'        => 2001.0929;  # prior versions always unexpand tabs
+requires      'parent'            => 0;
 
-requires      'Text::Wrap'        => 0; 
 test_requires 'File::Slurp'       => 0;
 test_requires 'Test::More'        => 0;
 
