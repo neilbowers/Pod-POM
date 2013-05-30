@@ -17,7 +17,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Constants.pm 78 2009-08-20 20:44:53Z ford $
+#   $Id: Constants.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -27,14 +27,13 @@ require 5.004;
 
 use strict;
 
-use vars qw( $VERSION @SEQUENCE @STATUS @EXPORT_OK %EXPORT_TAGS );
 use parent qw( Exporter );
 
-$VERSION   = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
-@SEQUENCE  = qw( CMD LPAREN RPAREN FILE LINE CONTENT );
-@STATUS    = qw( IGNORE REDUCE REJECT );
-@EXPORT_OK = ( @SEQUENCE, @STATUS );
-%EXPORT_TAGS = ( 
+our $VERSION   = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
+our @SEQUENCE  = qw( CMD LPAREN RPAREN FILE LINE CONTENT );
+our @STATUS    = qw( IGNORE REDUCE REJECT );
+our @EXPORT_OK = ( @SEQUENCE, @STATUS );
+our %EXPORT_TAGS = ( 
     status => [ @STATUS ], 
     seq    => [ @SEQUENCE ],
     all    => [ @STATUS, @SEQUENCE ], 

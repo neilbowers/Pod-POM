@@ -30,8 +30,11 @@ assert( defined $list );
 my $text = $head2->text->[0];
 assert( defined $text );
 
-Pod::POM->default_view('Pod::POM::View::Text')
-    || die "$Pod::POM::ERROR\n";
+{ 
+    no warnings 'once';  # $Pod::POM::ERROR is only used once
+    Pod::POM->default_view('Pod::POM::View::Text')
+	|| die "$Pod::POM::ERROR\n";
+}
 
 # uncomment this to see the results
 #print $pom;

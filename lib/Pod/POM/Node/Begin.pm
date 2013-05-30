@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Begin.pm 76 2009-08-20 20:41:33Z ford $
+#   $Id: Begin.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -27,11 +27,10 @@ package Pod::POM::Node::Begin;
 use strict;
 
 use parent qw( Pod::POM::Node );
-use vars qw( %ATTRIBS @ACCEPT $EXPECT $ERROR );
 
-%ATTRIBS =   ( format => undef );
-@ACCEPT  = qw( text verbatim code );
-$EXPECT  = 'end';
+our @ATTRIBS =   ( format => undef );
+our @ACCEPT  = qw( text verbatim code );
+our $EXPECT  = 'end';
 
 1;
 

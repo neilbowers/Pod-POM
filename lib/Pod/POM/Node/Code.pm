@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Code.pm 76 2009-08-20 20:41:33Z ford $
+#   $Id: Code.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -27,9 +27,8 @@ package Pod::POM::Node::Code;
 use strict;
 
 use parent qw( Pod::POM::Node );
-use vars qw( %ATTRIBS $ERROR );
 
-%ATTRIBS = ( text => '' );
+our @ATTRIBS = ( text => '' );
 
 sub present {
     my ($self, $view) = @_;

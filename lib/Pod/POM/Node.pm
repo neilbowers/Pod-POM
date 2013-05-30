@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Node.pm 88 2010-04-02 13:37:41Z ford $
+#   $Id: Node.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -64,20 +64,20 @@ use overload
 # 
 # Constructor method.  Returns a new Pod::POM::Node::* object or undef
 # on error.  First argument is the Pod::POM parser object, remaining 
-# arguments are node attributes as specified in %ATTRIBS in derived class
+# arguments are node attributes as specified in @ATTRIBS in derived class
 # package.
 #------------------------------------------------------------------------
 
 sub new {
     my $class = shift;
     my $pom   = shift;
-    my ($type, $attribs, $accept, $key, $value, $default);
+    my ($type, @attribs, $accept);
 
     $type = $NAMES->{ $class };
 
     {
 	no strict qw( refs );
-        $attribs = \%{"$class\::ATTRIBS"} || [ ];
+        @attribs = @{"$class\::ATTRIBS"};
 	$accept  = \@{"$class\::ACCEPT"}  || [ ];
 	unless (%{"$class\::ACCEPT"}) {
 	    %{"$class\::ACCEPT"} = ( 
@@ -95,9 +95,8 @@ sub new {
     }, $class;
 
     # set attributes from arguments
-    keys %$attribs;	    # reset hash iterator
-    while(my ($key, $default) = each %$attribs) {
-	$value = shift || $default;
+    while(my ($key, $default) = splice(@attribs, 0, 2)) {
+	my $value = shift || $default;
 	return $class->error("$type expected a $key")
 	    unless $value;
 	$self->{ $key } = $value;
@@ -294,7 +293,7 @@ sub dump {
     }
     else {
         no strict 'refs';
-        my @attrs = sort keys %{"*${nodepkg}::ATTRIBS"};
+        my @attrs = sort keys %{{ @{"${nodepkg}::ATTRIBS"} }};
         $output .= ("  " x $depth) . $self->type . "\n";
         foreach my $attr (@attrs) {
             if (my $value = $self->{$attr}) {
@@ -389,9 +388,9 @@ Pod::POM::Node - base class for a POM node
 
     package Pod::POM::Node::Over;
     use base qw( Pod::POM::Node );
-    use vars qw( %ATTRIBS @ACCEPT $EXPECT $ERROR );
+    use vars qw( @ATTRIBS @ACCEPT $EXPECT $ERROR );
 
-    %ATTRIBS =   ( indent => 4 );
+    @ATTRIBS =   ( indent => 4 );
     @ACCEPT  = qw( over item begin for text verbatim );
     $EXPECT  =  q( back );
 
@@ -421,16 +420,16 @@ new node objects.
     my $list = Pod::POM::Node::Over->new();
 
 The characteristics of a node can be specified by defining certain
-variables in the derived class package.  The C<%ATTRIBS> hash can be
+variables in the derived class package.  The C<@ATTRIBS> list can be
 used to denote attributes that the node should accept.  In the case of
 an C<=over> node, for example, an C<indent> attribute can be specified
 which otherwise defaults to 4.
 
     package Pod::POM::Node::Over;
     use base qw( Pod::POM::Node );
-    use vars qw( %ATTRIBS $ERROR );
+    use vars qw( @ATTRIBS $ERROR );
 
-    %ATTRIBS = ( indent => 4 );
+    @ATTRIBS = ( indent => 4 );
 
 The new() method will now expect an argument to set the indent value, 
 or will use 4 as the default if no argument is provided.
@@ -442,9 +441,9 @@ If the default value is undefined then the argument is mandatory.
 
     package Pod::POM::Node::Head1;
     use base qw( Pod::POM::Node );
-    use vars qw( %ATTRIBS $ERROR );
+    use vars qw( @ATTRIBS $ERROR );
 
-    %ATTRIBS = ( title => undef );
+    @ATTRIBS = ( title => undef );
 
     package main;
     my $head = Pod::POM::Node::Head1->new('My Title');
@@ -470,9 +469,9 @@ that are permitted as children of a node.
 
     package Pod::POM::Node::Head1;
     use base qw( Pod::POM::Node );
-    use vars qw( %ATTRIBS @ACCEPT $ERROR );
+    use vars qw( @ATTRIBS @ACCEPT $ERROR );
 
-    %ATTRIBS =   ( title => undef );
+    @ATTRIBS =   ( title => undef );
     @ACCEPT  = qw( head2 over begin for text verbatim );
 
 The add() method can then be called against a node to add a new child
@@ -518,9 +517,9 @@ successful termination.
 
     package Pod::POM::Node::Over;
     use base qw( Pod::POM::Node );
-    use vars qw( %ATTRIBS @ACCEPT $EXPECT $ERROR );
+    use vars qw( @ATTRIBS @ACCEPT $EXPECT $ERROR );
 
-    %ATTRIBS =   ( indent => 4 );
+    @ATTRIBS =   ( indent => 4 );
     @ACCEPT  = qw( over item begin for text verbatim );
     $EXPECT  =  q( back );
 

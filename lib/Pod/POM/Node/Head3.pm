@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Head3.pm 76 2009-08-20 20:41:33Z ford $
+#   $Id: Head3.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -27,10 +27,9 @@ package Pod::POM::Node::Head3;
 use strict;
 
 use parent qw( Pod::POM::Node );
-use vars qw( %ATTRIBS @ACCEPT $ERROR );
 
-%ATTRIBS =   ( title => undef );
-@ACCEPT  = qw( head4 over begin for text verbatim code );
+our @ATTRIBS =   ( title => undef );
+our @ACCEPT  = qw( head4 over begin for text verbatim code );
 
 sub new {
     my ($class, $pom, $title) = @_;

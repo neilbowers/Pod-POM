@@ -1,0 +1,10 @@
+pod
+  head1
+    @title
+      "NAME"
+    text
+      @text
+        "230-encoding"
+    text
+      @text
+        "This is latin-2 for a c with an accent: Slaven Rezić"

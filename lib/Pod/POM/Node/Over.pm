@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Over.pm 76 2009-08-20 20:41:33Z ford $
+#   $Id: Over.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -27,11 +27,10 @@ package Pod::POM::Node::Over;
 use strict;
 
 use parent qw( Pod::POM::Node );
-use vars qw( %ATTRIBS @ACCEPT $EXPECT $ERROR );
 
-%ATTRIBS =   ( indent => 4 );
-@ACCEPT  = qw( over item begin for text verbatim code );
-$EXPECT  = 'back';
+our @ATTRIBS =   ( indent => 4 );
+our @ACCEPT  = qw( over item begin for text verbatim code );
+our $EXPECT  = 'back';
 
 sub list_type {
     my $self = shift;

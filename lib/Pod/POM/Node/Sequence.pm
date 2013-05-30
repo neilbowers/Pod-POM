@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Sequence.pm 76 2009-08-20 20:41:33Z ford $
+#   $Id: Sequence.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -28,9 +28,8 @@ use strict;
 
 use Pod::POM::Constants qw( :all );
 use parent qw( Pod::POM::Node );
-use vars qw( %NAME );
 
-%NAME = (
+our %NAME = (
     C => 'code',
     B => 'bold',
     I => 'italic',

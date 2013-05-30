@@ -59,7 +59,8 @@ sub run_tests {
             local $TODO;
             $TODO = $test->options->{todo} || '';
 
-            my $pom    = $pod_parser->parse_text($test->input);
+            my $pom    = $pod_parser->parse_text($test->input)
+                or die $pod_parser->error;
             my $result = $view ? $pom->present($view) : $pom->dump;
 
             $eq->($result, $test->expect, $test->title);

@@ -19,7 +19,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: POM.pm 88 2010-04-02 13:37:41Z ford $
+#   $Id: POM.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -28,28 +28,27 @@ package Pod::POM;
 require 5.004;
 
 use strict;
+
 use Pod::POM::Constants qw( :all );
 use Pod::POM::Nodes;
 use Pod::POM::View::Pod;
 
-use vars qw( $VERSION $DEBUG $ERROR $ROOT $TEXTSEQ $DEFAULT_VIEW );
-use base qw( Exporter );
+use parent qw( Exporter );
 
-$VERSION = '0.27';
-$DEBUG   = 0 unless defined $DEBUG;
-$ROOT    = 'Pod::POM::Node::Pod';               # root node class
-$TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
-$DEFAULT_VIEW = 'Pod::POM::View::Pod';          # default view class
+our $VERSION = '0.28';
+our $DEBUG   = 0 unless defined $DEBUG;
+our $ROOT    = 'Pod::POM::Node::Pod';               # root node class
+our $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
+our $DEFAULT_VIEW = 'Pod::POM::View::Pod';          # default view class
 
 
 #------------------------------------------------------------------------
 # allow 'meta' to be specified as a load option to activate =meta tags
 #------------------------------------------------------------------------
 
-use vars qw( @EXPORT_FAIL @EXPORT_OK $ALLOW_META );
-@EXPORT_OK   = qw( meta );
-@EXPORT_FAIL = qw( meta );
-$ALLOW_META  = 0;
+our @EXPORT_OK   = qw( meta );
+our @EXPORT_FAIL = qw( meta );
+our $ALLOW_META  = 0;
 
 sub export_fail {
     my $class = shift;
@@ -1605,7 +1604,7 @@ Andrew Ford E<lt>A.Ford@ford-mason.co.ukE<gt> (co-maintainer as of 03/2009)
 
 =head1 VERSION
 
-This is version 0.25 of the Pod::POM module.
+This is version 0.28 of the Pod::POM module.
 
 =head1 COPYRIGHT
 
@@ -1631,3 +1630,4 @@ further details:
 
     http://www.cpan.org/modules/by-module/Pod/
 
+=cut

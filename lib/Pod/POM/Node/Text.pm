@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Text.pm 76 2009-08-20 20:41:33Z ford $
+#   $Id: Text.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -28,9 +28,8 @@ use strict;
 
 use Pod::POM::Constants qw( :all );
 use parent qw( Pod::POM::Node );
-use vars qw( %ATTRIBS $ERROR );
 
-%ATTRIBS = ( text => '' );
+our @ATTRIBS = ( text => '' );
 
 sub new {
     my $class = shift;

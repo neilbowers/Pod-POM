@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: For.pm 76 2009-08-20 20:41:33Z ford $
+#   $Id: For.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -27,14 +27,14 @@ package Pod::POM::Node::For;
 use strict;
 
 use parent qw( Pod::POM::Node );
-use vars qw( %ATTRIBS $ERROR );
 
-%ATTRIBS = ( format => undef, text => '' );
+our @ATTRIBS = ( format => undef, text => '' );
 
 sub new {
     my $class = shift;
     my $pom   = shift;
     my $text  = shift;
+
     return $class->SUPER::new($pom, split(/\s+/, $text, 2));
 }
 

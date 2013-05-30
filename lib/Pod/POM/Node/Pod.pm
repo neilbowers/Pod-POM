@@ -18,7 +18,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Pod.pm 76 2009-08-20 20:41:33Z ford $
+#   $Id: Pod.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
@@ -27,9 +27,8 @@ package Pod::POM::Node::Pod;
 use strict;
 
 use parent qw( Pod::POM::Node );
-use vars qw( @ACCEPT $ERROR );
 
-@ACCEPT = qw( head1 head2 head3 head4 over begin for text verbatim code );
+our @ACCEPT = qw( head1 head2 head3 head4 over begin for text verbatim code );
 
 1;
 
