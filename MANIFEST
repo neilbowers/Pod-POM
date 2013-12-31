@@ -45,12 +45,6 @@ t/10-parser.t
 t/11-view-pod.t
 t/12-view-text.t
 t/13-view-html.t
-t/30-seq-delimiter-warnings.t
-t/90-pod.t
-t/91-pod-coverage.t
-t/92-perlcritic.t
-t/93-kwalitee.t
-t/94-distribution.t
 t/PodPOMTestLib.pm
 t/YAML/Tiny.pm
 t/code.t
@@ -67,9 +61,6 @@ t/testcases/100-simple-document.pom-dump
 t/testcases/100-simple-document.view-html
 t/testcases/100-simple-document.view-pod
 t/testcases/100-simple-document.view-text
-t/testcases/101-bare-para.pod
-t/testcases/101-bare-para.pom-dump
-t/testcases/101-bare-para.view-pod
 t/testcases/120-verbatim-paragraphs.pod
 t/testcases/120-verbatim-paragraphs.pom-dump
 t/testcases/120-verbatim-paragraphs.view-html
@@ -121,9 +112,6 @@ t/testcases/230-alternate-delimters.view-pod
 t/testcases/230-alternate-delimters.view-text
 t/testcases/240-encoding.pod
 t/testcases/240-encoding.view-html
-t/testcases/240-encoding.pom-dump
-t/testcases/300-entities.pod
-t/testcases/300-entities.view-pod
 t/text.t
 t/textview.t
 t/view.t

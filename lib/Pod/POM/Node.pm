@@ -15,7 +15,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Node.pm 89 2013-05-30 07:41:52Z ford $
+#   $Id: Node.pm 91 2013-12-31 07:36:02Z ford $
 #
 #========================================================================
 
@@ -228,7 +228,7 @@ sub metadata {
 # package variable $ERROR (class method) or internal member 
 # $self->{ _ERROR } (object method).  The presence of parameters indicates
 # that the error value should be set.  Undef is then returned.  In the
-# abscence of parameters, the current error value is returned.
+# absence of parameters, the current error value is returned.
 #------------------------------------------------------------------------
 
 sub error {

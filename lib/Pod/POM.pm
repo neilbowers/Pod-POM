@@ -19,7 +19,7 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: POM.pm 89 2013-05-30 07:41:52Z ford $
+#   $Id: POM.pm 91 2013-12-31 07:36:02Z ford $
 #
 #========================================================================
 
@@ -35,7 +35,7 @@ use Pod::POM::View::Pod;
 
 use parent qw( Exporter );
 
-our $VERSION = '0.28';
+our $VERSION = '0.29';
 our $DEBUG   = 0 unless defined $DEBUG;
 our $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 our $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
@@ -980,7 +980,7 @@ as well as regular, formatted text blocks to contain code sequences,
 such like C<BE<lt>thisE<gt>> and C<IE<lt>thisE<gt>>.  These are used
 to indicate different markup styles, mark external references or index
 items, and so on.  What's more, they can be C<BE<lt>nested
-IE<lt>indefinatelyE<gt>E<gt>>.  Pod::POM takes care of all this by
+IE<lt>indefinitelyE<gt>E<gt>>.  Pod::POM takes care of all this by
 parsing such text, along with any embedded sequences, into Yet Another
 Tree, the root node of which is a Pod::POM::Node::Text object,
 possibly containing other Pod::POM::Node::Sequence objects.  When the
@@ -1403,7 +1403,7 @@ Content elements: over, begin, for, verbatim, text, code.
 
 The C<over> node encloses the Pod content in a list starting at an C<=over> 
 tag and continuing up to the matching C<=back> tag.  Lists may be nested 
-indefinately.
+indefinitely.
 
 Attributes: indent (default: 4)
 
