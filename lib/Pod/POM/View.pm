@@ -22,12 +22,13 @@
 
 package Pod::POM::View;
 
-require 5.004;
+require 5.006;
 
 use strict;
-use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD $INSTANCE );
+use warnings;
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.4 $ =~ /(\d+)\.(\d+)/);
+use vars qw( $DEBUG $ERROR $AUTOLOAD $INSTANCE );
+
 $DEBUG   = 0 unless defined $DEBUG;
 
 

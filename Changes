@@ -1,6 +1,9 @@
 Revision history for Perl 5 CPAN module Pod::POM
 
-0.29_01 2015-08-03 NEILB
+0.29_01 2015-08-02 NEILB
+    * Switched to Dist::Zilla
+    * Added "use warnings" and "require 5.006" to all modules.
+    * Moved custom-pom2 script from bin/ to examples/
     * Reformatted this file as per CPAN::Changes::Spec
 
 0.29 2013-12-31 ANDREWF

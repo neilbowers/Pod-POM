@@ -23,13 +23,13 @@
 
 package Pod::POM::Constants;
 
-require 5.004;
+require 5.006;
 
 use strict;
+use warnings;
 
 use parent qw( Exporter );
 
-our $VERSION   = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
 our @SEQUENCE  = qw( CMD LPAREN RPAREN FILE LINE CONTENT );
 our @STATUS    = qw( IGNORE REDUCE REJECT );
 our @EXPORT_OK = ( @SEQUENCE, @STATUS );

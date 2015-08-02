@@ -21,15 +21,16 @@
 
 package Pod::POM::View::HTML;
 
-require 5.004;
+require 5.006;
 
 use strict;
+use warnings;
+
 use Pod::POM::View;
 use parent qw( Pod::POM::View );
-use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD );
+use vars qw( $DEBUG $ERROR $AUTOLOAD );
 use Text::Wrap;
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.6 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 my $HTML_PROTECT = 0;
 my @OVER;

@@ -21,15 +21,16 @@
 
 package Pod::POM::Node;
 
-require 5.004;
+require 5.006;
 
 use strict;
+use warnings;
+
 use Pod::POM::Nodes;
 use Pod::POM::Constants qw( :all );
-use vars qw( $VERSION $DEBUG $ERROR $NODES $NAMES $AUTOLOAD );
+use vars qw( $DEBUG $ERROR $NODES $NAMES $AUTOLOAD );
 use constant DUMP_LINE_LENGTH => 80;
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.5 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 $NODES   = {
     pod      => 'Pod::POM::Node::Pod',

@@ -24,7 +24,9 @@
 
 package Pod::POM::Node::Head2;
 
+require 5.006;
 use strict;
+use warnings;
 
 use parent qw( Pod::POM::Node );
 

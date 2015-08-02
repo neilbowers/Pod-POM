@@ -21,14 +21,15 @@
 
 package Pod::POM::Test;
 
-require 5.004;
+require 5.006;
 
 use strict;
+use warnings;
+
 use Pod::POM;
 use base qw( Exporter );
-use vars qw( $VERSION @EXPORT );
+use vars qw( @EXPORT );
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.1.1.1 $ =~ /(\d+)\.(\d+)/);
 @EXPORT  = qw( ntests ok match assert );
 
 my $ok_count;

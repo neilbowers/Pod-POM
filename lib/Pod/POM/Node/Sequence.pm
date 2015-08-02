@@ -24,7 +24,9 @@
 
 package Pod::POM::Node::Sequence;
 
+require 5.006;
 use strict;
+use warnings;
 
 use Pod::POM::Constants qw( :all );
 use parent qw( Pod::POM::Node );

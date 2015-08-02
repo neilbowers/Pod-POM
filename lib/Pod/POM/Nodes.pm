@@ -22,10 +22,11 @@
 
 package Pod::POM::Nodes;
 
-require 5.004;
+require 5.006;
 require Exporter;
 
 use strict;
+use warnings;
 
 use Pod::POM::Node::Pod;
 use Pod::POM::Node::Head1;
@@ -43,10 +44,9 @@ use Pod::POM::Node::Sequence;
 use Pod::POM::Node::Content;
 
 
-use vars qw( $VERSION $DEBUG $ERROR @EXPORT_OK @EXPORT_FAIL );
+use vars qw( $DEBUG $ERROR @EXPORT_OK @EXPORT_FAIL );
 use base qw( Exporter );
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.3 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 
 1;

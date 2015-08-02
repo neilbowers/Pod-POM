@@ -21,15 +21,15 @@
 
 package Pod::POM::View::Pod;
 
-require 5.004;
-
+require 5.006;
 use strict;
+use warnings;
+
 use Pod::POM::Nodes;
 use Pod::POM::View;
 use parent qw( Pod::POM::View );
-use vars qw( $VERSION $DEBUG $ERROR $AUTOLOAD $MARKUP );
+use vars qw( $DEBUG $ERROR $AUTOLOAD $MARKUP );
 
-$VERSION = sprintf("%d.%02d", q$Revision: 1.3 $ =~ /(\d+)\.(\d+)/);
 $DEBUG   = 0 unless defined $DEBUG;
 
 # create reverse lookup table mapping method name to original sequence

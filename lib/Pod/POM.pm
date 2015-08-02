@@ -25,9 +25,10 @@
 
 package Pod::POM;
 
-require 5.004;
+require 5.006;
 
 use strict;
+use warnings;
 
 use Pod::POM::Constants qw( :all );
 use Pod::POM::Nodes;
@@ -35,7 +36,6 @@ use Pod::POM::View::Pod;
 
 use parent qw( Exporter );
 
-our $VERSION = '0.29';
 our $DEBUG   = 0 unless defined $DEBUG;
 our $ROOT    = 'Pod::POM::Node::Pod';               # root node class
 our $TEXTSEQ = 'Pod::POM::Node::Sequence';          # text sequence class
@@ -1601,10 +1601,6 @@ carefully.
 Andy Wardley E<lt>abw@kfs.orgE<gt>
 
 Andrew Ford E<lt>A.Ford@ford-mason.co.ukE<gt> (co-maintainer as of 03/2009)
-
-=head1 VERSION
-
-This is version 0.28 of the Pod::POM module.
 
 =head1 COPYRIGHT
 
