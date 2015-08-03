@@ -180,7 +180,9 @@ sub parse_text {
         my($encline,$chunk) = splice @encchunks, 0, 2;
         require Encode;
         my($encoding) = $encline =~ /^=encoding\s+(\S+)/;
-        Encode::from_to($chunk, $encoding, "utf8");
+        if ($encoding ne 'utf8' || !Encode::is_utf8($chunk)) {
+	        Encode::from_to($chunk, $encoding, "utf8");
+	    }
         Encode::_utf8_on($chunk);
         # $text .= "xxx$encline";
         $text .= $chunk;
