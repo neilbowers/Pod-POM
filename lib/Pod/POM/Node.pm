@@ -388,7 +388,7 @@ Pod::POM::Node - base class for a POM node
 =head1 SYNOPSIS
 
     package Pod::POM::Node::Over;
-    use base qw( Pod::POM::Node );
+    use parent qw( Pod::POM::Node );
     use vars qw( @ATTRIBS @ACCEPT $EXPECT $ERROR );
 
     @ATTRIBS =   ( indent => 4 );
@@ -413,7 +413,7 @@ This module implements a base class node which is subclassed to
 represent different elements within a Pod Object Model. 
 
     package Pod::POM::Node::Over;
-    use base qw( Pod::POM::Node );
+    use parent qw( Pod::POM::Node );
 
 The base class implements the new() constructor method to instantiate 
 new node objects.  
@@ -427,7 +427,7 @@ an C<=over> node, for example, an C<indent> attribute can be specified
 which otherwise defaults to 4.
 
     package Pod::POM::Node::Over;
-    use base qw( Pod::POM::Node );
+    use parent qw( Pod::POM::Node );
     use vars qw( @ATTRIBS $ERROR );
 
     @ATTRIBS = ( indent => 4 );
@@ -441,7 +441,7 @@ or will use 4 as the default if no argument is provided.
 If the default value is undefined then the argument is mandatory.
 
     package Pod::POM::Node::Head1;
-    use base qw( Pod::POM::Node );
+    use parent qw( Pod::POM::Node );
     use vars qw( @ATTRIBS $ERROR );
 
     @ATTRIBS = ( title => undef );
@@ -469,7 +469,7 @@ The C<@ACCEPT> package variable can be used to indicate the node types
 that are permitted as children of a node.
 
     package Pod::POM::Node::Head1;
-    use base qw( Pod::POM::Node );
+    use parent qw( Pod::POM::Node );
     use vars qw( @ATTRIBS @ACCEPT $ERROR );
 
     @ATTRIBS =   ( title => undef );
@@ -517,7 +517,7 @@ such a match is made, the add() method returns REDUCE to indicate
 successful termination.
 
     package Pod::POM::Node::Over;
-    use base qw( Pod::POM::Node );
+    use parent qw( Pod::POM::Node );
     use vars qw( @ATTRIBS @ACCEPT $EXPECT $ERROR );
 
     @ATTRIBS =   ( indent => 4 );

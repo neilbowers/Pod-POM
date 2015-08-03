@@ -10,7 +10,7 @@ ntests(2);
 
 #------------------------------------------------------------------------
 package My::View;
-use base qw( Pod::POM::View::Text );
+use parent qw( Pod::POM::View::Text );
 
 sub view_head1 {
     my ($self, $head1) = @_;

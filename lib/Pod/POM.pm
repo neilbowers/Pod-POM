@@ -548,7 +548,7 @@ Pod::POM - POD Object Model
 
     # create custom view
     package My::View;
-    use base qw( Pod::POM::View::HTML );
+    use parent qw( Pod::POM::View::HTML );
 
     sub view_head1 {
 	my ($self, $item) = @_;
@@ -995,7 +995,7 @@ Now the real magic comes into effect.  You can define one view to
 render bold/italic text in one style:
 
     package My::View::Text;
-    use base qw( Pod::POM::View::Text );
+    use parent qw( Pod::POM::View::Text );
 
     sub view_seq_bold {
 	my ($self, $text) = @_;
@@ -1010,7 +1010,7 @@ render bold/italic text in one style:
 And another view to render it in a different style:
 
     package My::View::HTML;
-    use base qw( Pod::POM::View::HTML );
+    use parent qw( Pod::POM::View::HTML );
 
     sub view_seq_bold {
 	my ($self, $text) = @_;

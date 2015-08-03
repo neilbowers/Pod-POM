@@ -96,7 +96,7 @@ EOF
 
 package My::View;
 
-use base qw( Pod::POM::View::HTML );
+use parent qw( Pod::POM::View::HTML );
 
 sub view_head1
 {

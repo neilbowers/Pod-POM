@@ -45,7 +45,7 @@ use Pod::POM::Node::Content;
 
 
 use vars qw( $DEBUG $ERROR @EXPORT_OK @EXPORT_FAIL );
-use base qw( Exporter );
+use parent qw( Exporter );
 
 $DEBUG   = 0 unless defined $DEBUG;
 

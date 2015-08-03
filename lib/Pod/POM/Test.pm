@@ -27,7 +27,7 @@ use strict;
 use warnings;
 
 use Pod::POM;
-use base qw( Exporter );
+use parent qw( Exporter );
 use vars qw( @EXPORT );
 
 @EXPORT  = qw( ntests ok match assert );

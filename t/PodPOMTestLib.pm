@@ -5,7 +5,7 @@ package PodPOMTestLib;
 use strict;
 use vars qw(@EXPORT);
 
-use base 'Exporter';
+use parent 'Exporter';
 
 use Pod::POM;
 use Test::More;

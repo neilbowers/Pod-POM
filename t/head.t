@@ -11,7 +11,7 @@ use Pod::POM::Test;
 ntests(13);
 
 package My::View;
-use base qw( Pod::POM::View );
+use parent qw( Pod::POM::View );
 
 sub view_seq_entity {
     my ($self, $text) = @_;
