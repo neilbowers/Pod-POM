@@ -1,7 +1,11 @@
 #!/usr/bin/perl -w                                         # -*- perl -*-
 
 use strict;
+use utf8;
+
 use lib qw( ./lib ../lib );
+
+use Encode;
 use Pod::POM;
 use Pod::POM::View::HTML;
 use Pod::POM::Test;
@@ -13,6 +17,7 @@ $Pod::POM::DEFAULT_VIEW = 'Pod::POM::View::HTML';
 my $text;
 {   local $/ = undef;
     $text = <DATA>;
+    Encode::_utf8_on($text);
 }
 my ($test, $expect) = split(/\s*-------+\s*/, $text);
 
@@ -52,6 +57,8 @@ sub diff {
 #print $pom;
 
 __DATA__
+=encoding utf8
+
 =head1 NAME
 
 Test
@@ -67,6 +74,7 @@ Test
 This is the description.
 
     Here is a verbatim section.
+    And we ♥ utf-8 here.
 
 This is some more regular text.
 
@@ -213,7 +221,8 @@ as well.
 <h1>DESCRIPTION</h1>
 
 <p>This is the description.</p>
-<pre>    Here is a verbatim section.</pre>
+<pre>    Here is a verbatim section.
+    And we &#x2665; utf-8 here.</pre>
 
 <p>This is some more regular text.</p>
 <p>Here is some <b>bold</b> text, some <i>italic</i> and something that looks 
