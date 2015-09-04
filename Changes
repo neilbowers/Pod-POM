@@ -1,5 +1,14 @@
 Revision history for Perl 5 CPAN module Pod::POM
 
+0.30 2015-09-04 NEILB
+    * Dropped File::Slurp in favour of File::Slurper.
+      RT#106853 from Henk van Oers.
+    * Don't try to convert text to UTF-8 if it's already tagged as UTF-8.
+      Thanks to Artem Krivopolenov.
+    * Changed all remaining instances of 'use base' to 'use parent';
+      it was previously using a mixture of parent *and* base.
+    * Added "use warnings" and "require 5.006" to all modules.
+
 0.29_02 2015-08-03 NEILB
     * Don't try to convert text to UTF-8 if it's already tagged as UTF-8.
       Thanks to Artem Krivopolenov.

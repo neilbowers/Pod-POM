@@ -9,7 +9,7 @@ use parent 'Exporter';
 
 use Pod::POM;
 use Test::More;
-use File::Slurp;
+use File::Slurper 0.004 qw/ read_binary /;
 use YAML::Tiny;
 
 # use Data::Dumper; # for debugging
@@ -93,14 +93,14 @@ sub get_tests {
         (my $basename = $basepath) =~ s{.*/}{};
 	next unless -f "${basepath}.$expect_ext";
 	my ($title, $options);
-	my $podtext = read_file($podfile);
-	my $expect  = read_file("${basepath}.$expect_ext");
+	my $podtext = read_binary($podfile);
+	my $expect  = read_binary("${basepath}.$expect_ext");
         require Encode;
         Encode::_utf8_on($expect);
 
         # fetch options from YAML files - need to work out semantics
 
-	if (my $ymltext = -f "${basepath}.yml" && read_file("${basepath}.yml")) {
+	if (my $ymltext = -f "${basepath}.yml" && read_binary("${basepath}.yml")) {
 	    my $data = Load $ymltext;
 	    $title   = $data->{title};
             if (exists $data->{$expect_ext}) {
