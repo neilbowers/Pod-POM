@@ -1,5 +1,12 @@
 Revision history for Perl 5 CPAN module Pod::POM
 
+2.00 2015-09-05 NEILB
+    * Bumped version to 2.00 because last release failed to index:
+      some of the earlier releases had a dist version of 0.xx, but
+      various of the modules had version numbers 1.0x. PAUSE is now
+      right stricter about monotically increasing version numbers,
+      so easiest to just to jump ahead.
+
 0.30 2015-09-04 NEILB
     * Dropped File::Slurp in favour of File::Slurper.
       RT#106853 from Henk van Oers.
