@@ -127,7 +127,7 @@ sub AUTOLOAD {
 
 =head1 NAME
 
-Pod::POM::View
+Pod::POM::View - view POM objects
 
 =head1 DESCRIPTION
 

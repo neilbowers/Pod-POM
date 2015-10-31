@@ -57,7 +57,7 @@ use constant REJECT => 2;
 
 =head1 NAME
 
-Pod::POM::Constants
+Pod::POM::Constants - constants used for Pod::POM
 
 =head1 DESCRIPTION
 

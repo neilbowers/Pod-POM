@@ -412,7 +412,7 @@ sub encode {
 
 =head1 NAME
 
-Pod::POM::View::HTML
+Pod::POM::View::HTML - create HTML views of POM objects
 
 =head1 DESCRIPTION
 

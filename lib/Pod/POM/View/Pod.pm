@@ -190,7 +190,7 @@ sub view_meta {
 
 =head1 NAME
 
-Pod::POM::View::Pod
+Pod::POM::View::Pod - create a Pod view of a POM object
 
 =head1 DESCRIPTION
 
