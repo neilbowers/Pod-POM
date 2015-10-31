@@ -15,8 +15,12 @@ die usage() if $opts{ h };
 
 my $file = shift || die usage();
 
-my $parser = Pod::POM->new( code => 1 )
+my $parser;
+{
+    no warnings 'once';
+    $parser = Pod::POM->new( code => 1 )
     || die "$Pod::POM::ERROR\n";
+}
 
 my $pom = $parser->parse_file($file)
     || die $parser->error(), "\n";

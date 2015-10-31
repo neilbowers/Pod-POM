@@ -77,8 +77,12 @@ if (keys %options) {
 Pod::POM->default_view($view)
     || die "$Pod::POM::ERROR\n";
 
-my $parser = Pod::POM->new( warn => 1 )
-    || die "$Pod::POM::ERROR\n";
+my $parser;
+{
+    no warnings 'once'; # $Pod::POM::ERROR is only used once
+    $parser = Pod::POM->new( warn => 1 )
+        || die "$Pod::POM::ERROR\n";
+}
 
 my $pom = $parser->parse_file($file)
     || die $parser->error(), "\n";
