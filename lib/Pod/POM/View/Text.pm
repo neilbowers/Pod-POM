@@ -267,7 +267,7 @@ sub view_seq_link {
 
 =head1 NAME
 
-Pod::POM::View::Text
+Pod::POM::View::Text - create text views of POM objects
 
 =head1 DESCRIPTION
 
