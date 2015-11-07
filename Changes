@@ -1,5 +1,10 @@
 Revision history for Perl 5 CPAN module Pod::POM
 
+2.01 2015-11-07 NEILB
+    * Added abstracts to all of the submodules -- a PR from GARU.
+    * Changed README to README.md -- another PR from GARU.
+    * Fixed runtime warning for Pod::POM::ERROR -- another PR from GARU.
+
 2.00 2015-09-05 NEILB
     * Bumped version to 2.00 because last release failed to index:
       some of the earlier releases had a dist version of 0.xx, but
