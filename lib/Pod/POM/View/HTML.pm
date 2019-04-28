@@ -285,7 +285,10 @@ sub view_seq_link {
 
     my $page;
     my $section;
-    if ($link =~ m|^ (.*?) / "? (.*?) "? $|x) { # [name]/"section"
+    if ($link =~ m{^\w+://}s ) { # L<Perl homepage|https://www.perl.org/>
+        return make_href($link,$linktext);
+    }
+    elsif ($link =~ m|^ (.*?) / "? (.*?) "? $|x) { # [name]/"section"
         ($page, $section) = ($1, $2);
     }
     elsif ($link =~ /\s/) {  # this must be a section with missing quotes
@@ -354,6 +357,7 @@ sub make_href {
 my $urls = '(' . join ('|',
      qw{
        http
+       https
        telnet
        mailto
        news
@@ -380,9 +384,10 @@ sub view_seq_text {
 
      $text =~ s{
         \b                           # start at word boundary
+        (?<!\|)                      # but not immediately after a |
          (                           # begin $1  {
            $urls     :               # need resource and a colon
-	  (?!:)                     # Ignore File::, among others.
+           (?!:)                     # Ignore File::, among others.
            [$any] +?                 # followed by one or more of any valid
                                      #   character, but be conservative and
                                      #   take only what you need to....
