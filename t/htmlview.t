@@ -202,6 +202,7 @@ This is an email link: mailto:foo@bar.com
 See also L<Test Page 2|pod2>, the L<Your::Module> and L<Their::Module>
 manpages and the other interesting file F</usr/local/my/module/rocks>
 as well.
+If all else fails, consult L<the Perl homepage|https://www.perl.org/>.
 
 =cut
 
@@ -309,7 +310,8 @@ some text
 
 <p>See also <i>Test Page 2</i>, the <i>Your::Module</i> and <i>Their::Module</i>
 manpages and the other interesting file <i>/usr/local/my/module/rocks</i>
-as well.</p>
+as well.
+If all else fails, consult <a href="https://www.perl.org/">the Perl homepage</a>.</p>
 </body>
 </html>
 
