@@ -80,7 +80,7 @@ sub run_tests {
 
 sub get_tests {
     my ($type, $subtype) = @_;
-    (my $testcasedir = $0) =~ s{([^/]+)\.t}{testcases/};
+    (my $testcasedir = $0) =~ s{([^/^\\]+)\.t}{testcases/};
     my (@tests, $testno);
 
     my $expect_ext = $type;
