@@ -135,6 +135,38 @@ sub view_head4 {
 }
 
 
+sub view_head5 {
+    my ($self, $head5) = @_;
+    my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+    my $pad = ' ' x $$indent;
+    local $Text::Wrap::unexpand = 0;
+    my $title = wrap($pad, $pad, 
+		     $head5->title->present($self));
+
+    $$indent += 4;
+    my $output = "$title\n" . $head5->content->present($self);
+    $$indent -= 4;
+
+    return $output;
+}
+
+
+sub view_head6 {
+    my ($self, $head6) = @_;
+    my $indent = ref $self ? \$self->{ INDENT } : \$INDENT;
+    my $pad = ' ' x $$indent;
+    local $Text::Wrap::unexpand = 0;
+    my $title = wrap($pad, $pad, 
+		     $head6->title->present($self));
+
+    $$indent += 4;
+    my $output = "$title\n" . $head6->content->present($self);
+    $$indent -= 4;
+
+    return $output;
+}
+
+
 #------------------------------------------------------------------------
 # view_over($self, $over)
 #
@@ -288,6 +320,10 @@ Text view of a Pod Object Model.
 =item C<view_head3($self, $head3)>
 
 =item C<view_head4($self, $head4)>
+
+=item C<view_head5($self, $head5)>
+
+=item C<view_head6($self, $head6)>
 
 =item C<view_over($self, $over)>
 

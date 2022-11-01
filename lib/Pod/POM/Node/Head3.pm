@@ -31,7 +31,7 @@ use warnings;
 use parent qw( Pod::POM::Node );
 
 our @ATTRIBS =   ( title => undef );
-our @ACCEPT  = qw( head4 over begin for text verbatim code );
+our @ACCEPT  = qw( head4 head5 head6 over begin for text verbatim code );
 
 sub new {
     my ($class, $pom, $title) = @_;

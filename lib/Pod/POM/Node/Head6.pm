@@ -1,6 +1,6 @@
 #============================================================= -*-Perl-*-
 #
-# Pod::POM::Node::Head1
+# Pod::POM::Node::Head6
 #
 # DESCRIPTION
 #   Module implementing specific nodes in a Pod::POM, subclassed from
@@ -18,11 +18,11 @@
 #   modify it under the same terms as Perl itself.
 #
 # REVISION
-#   $Id: Head1.pm 89 2013-05-30 07:41:52Z ford $
+#   $Id: Head6.pm 89 2013-05-30 07:41:52Z ford $
 #
 #========================================================================
 
-package Pod::POM::Node::Head1;
+package Pod::POM::Node::Head6;
 
 require 5.006;
 use strict;
@@ -31,7 +31,7 @@ use warnings;
 use parent qw( Pod::POM::Node );
 
 our @ATTRIBS =   ( title => undef );
-our @ACCEPT  = qw( head2 head3 head4 head5 head6 over begin for text verbatim code );
+our @ACCEPT  = qw( over begin for text verbatim code );
 
 sub new {
     my ($class, $pom, $title) = @_;
@@ -45,7 +45,7 @@ sub new {
 
 =head1 NAME
 
-Pod::POM::Node::Head1 -
+Pod::POM::Node::Head6 -
 
 =head1 SYNOPSIS
 
@@ -53,7 +53,7 @@ Pod::POM::Node::Head1 -
 
 =head1 DESCRIPTION
 
-This module implements a specialization of the node class to represent C<=head1> elements.
+This module implements a specialization of the node class to represent C<=head6> elements.
 
 =head1 AUTHOR
 

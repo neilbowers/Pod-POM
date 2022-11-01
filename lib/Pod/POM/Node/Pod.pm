@@ -30,7 +30,7 @@ use warnings;
 
 use parent qw( Pod::POM::Node );
 
-our @ACCEPT = qw( head1 head2 head3 head4 over begin for text verbatim code );
+our @ACCEPT = qw( head1 head2 head3 head4 head5 head6 over begin for text verbatim code );
 
 1;
 
