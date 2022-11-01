@@ -1362,7 +1362,7 @@ implement a method which corresponds to the node name prefixed by 'view_'
 
 The C<pod> node is used to represent the root node of the Pod Object Model.
 
-Content elements: head1, head2, head3, head4, over, begin, for,
+Content elements: head1, head2, head3, head4, head5, head6, over, begin, for,
 verbatim, text, code.
 
 =item head1
@@ -1372,7 +1372,7 @@ next C<=head1> tag or the end of the file.
 
 Attributes: title
 
-Content elements: head2, head3, head4, over, begin, for, verbatim, text, code.
+Content elements: head2, head3, head4, head5, head6, over, begin, for, verbatim, text, code.
 
 =item head2
 
@@ -1381,7 +1381,7 @@ next C<=head1> or C<=head2> tag or the end of the file.
 
 Attributes: title
 
-Content elements: head3, head4, over, begin, for, verbatim, text, code.
+Content elements: head3, head4, head5, head6, over, begin, for, verbatim, text, code.
 
 =item head3
 
@@ -1390,12 +1390,30 @@ next C<=head1>, C<=head2> or C<=head3> tag or the end of the file.
 
 Attributes: title
 
-Content elements: head4, over, begin, for, verbatim, text, code.
+Content elements: head4, head5, head6, over, begin, for, verbatim, text, code.
 
 =item head4
 
 A C<head4> node contains the Pod content from a C<=head4> tag up to the 
 next C<=head1>, C<=head2>, C<=head3> or C<=head4> tag or the end of the file.
+
+Attributes: title
+
+Content elements: head5, head6, over, begin, for, verbatim, text, code.
+
+=item head5
+
+A C<head5> node contains the Pod content from a C<=head5> tag up to the 
+next C<=head1>, C<=head2>, C<=head3>, C<=head4> or C<=head5> tag or the end of the file.
+
+Attributes: title
+
+Content elements: head6, over, begin, for, verbatim, text, code.
+
+=item head6
+
+A C<head6> node contains the Pod content from a C<=head6> tag up to the 
+next C<=head1>, C<=head2>, C<=head3>, C<=head4>, C<=head5> or C<=head6> tag or the end of the file.
 
 Attributes: title
 

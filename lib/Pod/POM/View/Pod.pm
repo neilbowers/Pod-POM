@@ -122,6 +122,24 @@ sub view_head4 {
 }
 
 
+sub view_head5 {
+    my ($self, $head5) = @_;
+    return '=head5 ' 
+	. $head5->title->present($self) 
+	. "\n\n" 
+	. $head5->content->present($self);
+}
+
+
+sub view_head6 {
+    my ($self, $head6) = @_;
+    return '=head6 ' 
+	. $head6->title->present($self) 
+	. "\n\n" 
+	. $head6->content->present($self);
+}
+
+
 sub view_over {
     my ($self, $over) = @_;
     return '=over ' 
@@ -211,6 +229,10 @@ Pod view of a Pod Object Model.
 =item C<view_head3($self, $head3)>
 
 =item C<view_head4($self, $head4)>
+
+=item C<view_head5($self, $head5)>
+
+=item C<view_head6($self, $head6)>
 
 =item C<view_over($self, $over)>
 

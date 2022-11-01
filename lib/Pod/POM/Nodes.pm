@@ -33,6 +33,8 @@ use Pod::POM::Node::Head1;
 use Pod::POM::Node::Head2;
 use Pod::POM::Node::Head3;
 use Pod::POM::Node::Head4;
+use Pod::POM::Node::Head5;
+use Pod::POM::Node::Head6;
 use Pod::POM::Node::Over;
 use Pod::POM::Node::Item;
 use Pod::POM::Node::Begin;
